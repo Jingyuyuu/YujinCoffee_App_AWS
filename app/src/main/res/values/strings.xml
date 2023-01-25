@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">玉津咖啡</string>
+    <string name="yj_slogan">啟程 為夢想舉杯</string>
+    <string name="yj_slogan_wng">TAKE ME AWAY</string>
+    <string name="yj_acc">帳號：</string>
+    <string name="yj_pwd">密碼：</string>
+    <string name="yj_m_nameTittle">會員姓名：</string>
+    <string name="yj_m_pwdTittle">會員密碼：</string>
+    <string name="yj_m_reNewPwdTittle">修改會員密碼：</string>
+    <string name="yj_m_pwd2Tittle">會員密碼確認：</string>
+    <string name="yj_m_pointTittle">會員點數：</string>
+    <string name="yj_m_emailTittle">會員信箱(帳號)：</string>
+    <string name="yj_m_phoneTittle">會員電話：</string>
+    <string name="yj_m_presetStoreTittle">預設訂購店家：</string>
+    <string name="yj_m_presetPaymentTittle">預設付款方式：</string>
+
+    <string name="hank_sugar">全糖</string>
+    <string name="hank_halfSugar">半糖</string>
+    <string name="hank_microSugar">微糖</string>
+    <string name="hank_noSugar">無糖</string>
+    <string name="hank_ice">正常冰</string>
+    <string name="hank_lessIce">少冰</string>
+    <string name="hank_microIce">微冰</string>
+    <string name="hank_noIce">去冰</string>
+    <string name="hank_hot">熱</string>
+    <string name="hank_daca">大卡</string>
+    <string name="hank_ice_colon">冰量:</string>
+    <string name="hank_hot_colon">熱量:</string>
+    <string name="hank_dollar_colon">元:</string>
+    <string name="hank_dollar">元</string>
+    <string name="hank_quantity_colon">數量:</string>
+    <string name="hank_quantity">數量</string>
+    <string name="hank_sweet_colon">甜度:</string>
+    <string name="hank_addOrder">加入訂單</string>
+    <string name="hank_price">價錢</string>
+    <string name="hank_productName">產品名稱</string>
+    <string name="hank_ca">卡</string>
+    <string-array name="series_array">
+        <item>All</item>
+        <item>芝芝茗茶</item>
+        <item>奶茶</item>
+        <item>芝芝水果茶</item>
+        <item>滿杯水果家族</item>
+        <item>新式茶飲</item>
+        <item>啵啵家族</item>
+        <item>咖啡家族</item>
+        <item>麵包</item>
+        <item>蛋糕</item>
+    </string-array>
+</resources>

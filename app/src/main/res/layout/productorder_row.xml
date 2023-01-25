@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textBackground"
+        android:layout_width="match_parent"
+        android:layout_height="321dp"
+        android:background="@color/yj_back_yel002"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.561"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageView
+        android:id="@+id/imageHolder"
+        android:layout_width="336dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textBackground"
+        app:layout_constraintVertical_bias="0.6"
+        app:srcCompat="@drawable/a1" />
+
+    <TextView
+        android:id="@+id/textSeries"
+        android:layout_width="105dp"
+        android:layout_height="24dp"
+        android:text="系列名稱"
+        android:textAlignment="center"
+        android:textColor="@color/light_orange002"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.313"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textBackground"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <TextView
+        android:id="@+id/textSeries2"
+        android:layout_width="122dp"
+        android:layout_height="27dp"
+        android:text="系列其他商品"
+        android:textAlignment="textStart"
+        android:textColor="@color/light_orange002"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textSeries"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textSeries"
+        app:layout_constraintVertical_bias="0.384" />
+</androidx.constraintlayout.widget.ConstraintLayout>

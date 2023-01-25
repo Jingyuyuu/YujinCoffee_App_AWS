@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".indextPageActivity">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/yujinmain" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="memberDataImgV,memberDataT" />
+
+    <ImageView
+        android:id="@+id/memberDataImgV"
+        android:layout_width="350sp"
+        android:layout_height="125dp"
+        android:cropToPadding="false"
+        android:focusableInTouchMode="false"
+        android:focusedByDefault="false"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:layout_constraintVertical_bias="0.120000005"
+        app:srcCompat="@drawable/ind003t" />
+
+    <TextView
+        android:id="@+id/memberDataT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_item_background"
+        android:text="玉津會員"
+        android:textColor="@color/white"
+        android:textSize="20.75sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/memberDataImgV"
+        app:layout_constraintEnd_toEndOf="@+id/memberDataImgV"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/memberDataImgV"
+        app:layout_constraintTop_toTopOf="@+id/memberDataImgV"
+        app:layout_constraintVertical_bias="0.546" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="newsImgV,newsT" />
+
+    <ImageView
+        android:id="@+id/newsImgV"
+        android:layout_width="350dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="43dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuImgV"
+        app:srcCompat="@drawable/bread" />
+
+    <TextView
+        android:id="@+id/newsT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_item_background"
+        android:text="最新消息"
+        android:textColor="@color/white"
+        android:textSize="20.75sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/newsImgV"
+        app:layout_constraintEnd_toEndOf="@+id/newsImgV"
+        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/newsImgV"
+        app:layout_constraintVertical_bias="0.506" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="menuImgV,menuT" />
+
+    <ImageView
+        android:id="@+id/menuImgV"
+        android:layout_width="350dp"
+        android:layout_height="125dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memberDataImgV"
+        app:layout_constraintVertical_bias="0.18"
+        app:srcCompat="@drawable/coffee" />
+
+    <TextView
+        android:id="@+id/menuT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_item_background"
+        android:text="商品菜單"
+        android:textColor="@color/white"
+        android:textSize="20.75sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/menuImgV"
+        app:layout_constraintEnd_toEndOf="@+id/menuImgV"
+        app:layout_constraintStart_toStartOf="@+id/menuImgV"
+        app:layout_constraintTop_toTopOf="@+id/menuImgV"
+        app:layout_constraintVertical_bias="0.533" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
