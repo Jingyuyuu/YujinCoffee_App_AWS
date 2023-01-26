@@ -31,7 +31,6 @@ public class SimpleeAPIWorker implements Runnable{
 
             JSONObject result=new JSONObject(responseString);
 
-
             Message m=handler.obtainMessage();
             Bundle bundle=new Bundle();
 
@@ -64,6 +63,10 @@ public class SimpleeAPIWorker implements Runnable{
                 bundle.putString("phone",result.getJSONObject("data").getString("phone"));
                 bundle.putInt("status",result.getInt("status"));
                 Log.e("999",bundle.getString("email"));
+            }else if(result.getInt("status")==1000){//訂單送出成功
+                bundle.putString("mesg",result.getString("mesg"));
+                bundle.putInt("status",result.getInt("status"));
+
             }else{
                 bundle.putString("mesg","系統錯誤，請洽程式開發人員");
                 bundle.putInt("status",result.getInt("status"));

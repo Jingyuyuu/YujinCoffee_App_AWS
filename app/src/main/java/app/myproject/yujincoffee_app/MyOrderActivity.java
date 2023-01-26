@@ -69,6 +69,8 @@ public class MyOrderActivity extends AppCompatActivity {
         binding=ActivityMyOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        executorService= Executors.newSingleThreadExecutor();
+
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -132,7 +134,7 @@ public class MyOrderActivity extends AppCompatActivity {
                 sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
                 String email=sharedPreferences.getString("email","查無資料");
 
-                executorService= Executors.newSingleThreadExecutor();
+
 
                 String name;
                 int amount;
@@ -282,10 +284,10 @@ public class MyOrderActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             Bundle bundle=msg.getData();
-            if(bundle.getInt("status")==666){
-                Toast.makeText(MyOrderActivity.this, "訂單送出成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MyOrderActivity.this, indextPageActivity.class);
-                startActivity(intent);
+            if(bundle.getInt("status")==1000){
+                Toast.makeText(MyOrderActivity.this, "訂單送出成功", Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(MyOrderActivity.this, indextPageActivity.class);
+                //startActivity(intent);
             }else{
                 Toast.makeText(MyOrderActivity.this, bundle.getString("mesg"), Toast.LENGTH_LONG).show();
             }
