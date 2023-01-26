@@ -14,21 +14,35 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.logging.SimpleFormatter;
 
 import app.myproject.yujincoffee_app.Adapter.MyOrderAdapter;
 import app.myproject.yujincoffee_app.Model.Product.ProductModel;
+import app.myproject.yujincoffee_app.Modle.Util.SimpleeAPIWorker;
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
 import app.myproject.yujincoffee_app.databinding.ActivityMyOrderBinding;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class MyOrderActivity extends AppCompatActivity {
     //點擊加入購物車按鈕後 將資料放入我的訂單頁面(MyOrderActivity)
@@ -37,6 +51,8 @@ public class MyOrderActivity extends AppCompatActivity {
     ArrayList<ProductModel> item;
     MyOrderAdapter adapter;
     SQLiteDatabase db;
+    SharedPreferences sharedPreferences;
+    ExecutorService executorService;
     private String createTable="create table if not exists tempProductOrder("+
             "_id integer"+" PRIMARY KEY AUTOINCREMENT,"+
             "shopName text,"+
@@ -52,8 +68,10 @@ public class MyOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityMyOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         //打開資料庫查看有無tempProductOrder資料表
         db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
 //        db.execSQL(createTable);
@@ -106,60 +124,68 @@ public class MyOrderActivity extends AppCompatActivity {
         binding.orderSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //取得當前時間
+                SimpleDateFormat simpleFormatter =new SimpleDateFormat("yyyy-MM-DD HH:mm");
+                Date curDate=new Date(System.currentTimeMillis());
+                String time= simpleFormatter.format(curDate);
+                //取得會員Email
+                sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
+                String email=sharedPreferences.getString("email","查無資料");
+
+                executorService= Executors.newSingleThreadExecutor();
+
                 String name;
                 int amount;
                 String ice;
                 String sugar;
                 int dollar;
+
                 JSONObject packet=new JSONObject();
                 JSONObject OrderMst=new JSONObject();
                 JSONArray OrderDetail=new JSONArray();
                 try {
                     packet.put("OrderMst",OrderMst);
-                    OrderMst.put("member","黃曉明");
-                    OrderMst.put("date","20230119");
+                    OrderMst.put("memberEmail",email);
+                    OrderMst.put("date",time);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                if(cursor.getCount()>0){
-                    cursor.moveToFirst();
-                    do{
-                        ProductModel a = new ProductModel(cursor.getInt(0),
-                                cursor.getString(1),
-                                cursor.getInt(2),
-                                cursor.getString(3),
-                                cursor.getString(4),
-                                cursor.getInt(5),
-                                cursor.getInt(6));
-                        item.add(a);
-
-                        name=a.getName();
-                        ice=a.getIce();
-                        sugar=a.getSugar();
-                        dollar=a.getDollar();
-                        amount=a.getAmount();
-
-                            JSONObject drink=new JSONObject();
-                        try {
-                            drink.put("飲料名稱",name);
-                            drink.put("冷熱",ice);
-                            drink.put("甜度", sugar);
-                            drink.put("數量", amount);
-                            drink.put("價錢", dollar);
-                            OrderDetail.put(drink);
-                            //Log.e("myorder,item","name="+name+"ice="+ice+"sugar="+sugar+"amount="+amount+"dollar"+dollar);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                    }while(cursor.moveToNext());
+                //抓出沒被滑掉的訂單資料
+                for(int i=0;i<item.size();i++){
+                    ProductModel a=item.get(i);
+                    name=a.getName();
+                    ice=a.getIce();
+                    sugar=a.getSugar();
+                    dollar=a.getDollar();
+                    amount=a.getAmount();
+                    JSONObject drink=new JSONObject();
                     try {
-                        OrderMst.put("OrderDetail",OrderDetail);
-                        Log.e("JSON",packet.toString());
+                        drink.put("name",name);
+                        drink.put("ice",ice);
+                        drink.put("sugar", sugar);
+                        drink.put("amount", amount);
+                        drink.put("dollar", dollar);
+                        OrderDetail.put(drink);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                 }
+                try {
+                    OrderMst.put("OrderDetail",OrderDetail);
+                    Log.e("JSON",packet.toString());
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                MediaType mType=MediaType.parse("application/json");
+                RequestBody body=RequestBody.create(packet.toString(),mType);
+                //VM IP=20.187.101.131
+                Request request=new Request.Builder()
+                        .url("http://192.168.43.21:8216/api/product/orderSubmit")
+                        .post(body)
+                        .build();
+                SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,orderSubmitHandler);
+                //產生Task準備給executor執行
+                executorService.execute(apiCaller);
 
             }
         });
@@ -250,5 +276,20 @@ public class MyOrderActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    Handler orderSubmitHandler=new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            Bundle bundle=msg.getData();
+            if(bundle.getInt("status")==666){
+                Toast.makeText(MyOrderActivity.this, "訂單送出成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MyOrderActivity.this, indextPageActivity.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(MyOrderActivity.this, bundle.getString("mesg"), Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 
 }
