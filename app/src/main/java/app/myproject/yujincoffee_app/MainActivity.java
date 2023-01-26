@@ -197,6 +197,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        db.execSQL("delete from tempProductOrder;");
+        //db.execSQL("delete from tempProductOrder;");
     }
 }

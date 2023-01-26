@@ -182,7 +182,7 @@ public class MyOrderActivity extends AppCompatActivity {
                 RequestBody body=RequestBody.create(packet.toString(),mType);
                 //VM IP=20.187.101.131
                 Request request=new Request.Builder()
-                        .url("http://192.168.43.21:8216/api/product/orderSubmit")
+                        .url("http:/192.168.43.21:8216/api/product/orderSubmit")
                         .post(body)
                         .build();
                 SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,orderSubmitHandler);

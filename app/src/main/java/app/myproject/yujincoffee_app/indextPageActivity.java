@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Bundle;
@@ -20,6 +21,10 @@ public class indextPageActivity extends AppCompatActivity {
 
     ActivityIndextPageBinding binding;
     SharedPreferences memberDataPre;
+
+    SQLiteDatabase db;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +119,11 @@ public class indextPageActivity extends AppCompatActivity {
             dialog.show();
         }
         return true;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.execSQL("delete from tempProductOrder;");
     }
 
 }
