@@ -21,6 +21,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -153,6 +157,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //我的訂單JSON Array測試
+        JSONObject packet=new JSONObject();
+        JSONObject OrderMst=new JSONObject();
+        JSONArray OrderDetail=new JSONArray();
+        try {
+            packet.put("OrderMst",OrderMst);
+            OrderMst.put("member","黃曉明");
+            OrderMst.put("date","20230119");
+            for(int i=0;i<3;i++){
+                JSONObject drink=new JSONObject();
+                drink.put("飲料id","A00"+(i+1));
+                drink.put("冷熱","冷");
+                drink.put("數量", (i+1)+"");
+                Log.e("JSON",drink.toString());
+                OrderDetail.put(drink);
+                Log.e("JSON",OrderDetail.toString());
+            }
+            OrderMst.put("OrderDetail",OrderDetail);
+            Log.e("JSON",packet.toString());
+
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
         //從azure抓入資料庫到SQlite裡面
         //創建yujin資料庫
         db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);

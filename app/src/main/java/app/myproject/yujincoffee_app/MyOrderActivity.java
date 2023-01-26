@@ -17,6 +17,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -96,6 +101,69 @@ public class MyOrderActivity extends AppCompatActivity {
         //建立左滑能刪除的機制
         new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(binding.shoppingCart);
         binding.shoppingCart.setAdapter(adapter);
+
+        //按下送出訂單按鈕 把訂單資料傳到server
+        binding.orderSubmitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name;
+                int amount;
+                String ice;
+                String sugar;
+                int dollar;
+                JSONObject packet=new JSONObject();
+                JSONObject OrderMst=new JSONObject();
+                JSONArray OrderDetail=new JSONArray();
+                try {
+                    packet.put("OrderMst",OrderMst);
+                    OrderMst.put("member","黃曉明");
+                    OrderMst.put("date","20230119");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                if(cursor.getCount()>0){
+                    cursor.moveToFirst();
+                    do{
+                        ProductModel a = new ProductModel(cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getInt(2),
+                                cursor.getString(3),
+                                cursor.getString(4),
+                                cursor.getInt(5),
+                                cursor.getInt(6));
+                        item.add(a);
+
+                        name=a.getName();
+                        ice=a.getIce();
+                        sugar=a.getSugar();
+                        dollar=a.getDollar();
+                        amount=a.getAmount();
+
+                            JSONObject drink=new JSONObject();
+                        try {
+                            drink.put("飲料名稱",name);
+                            drink.put("冷熱",ice);
+                            drink.put("甜度", sugar);
+                            drink.put("數量", amount);
+                            drink.put("價錢", dollar);
+                            OrderDetail.put(drink);
+                            //Log.e("myorder,item","name="+name+"ice="+ice+"sugar="+sugar+"amount="+amount+"dollar"+dollar);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }while(cursor.moveToNext());
+                    try {
+                        OrderMst.put("OrderDetail",OrderDetail);
+                        Log.e("JSON",packet.toString());
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            }
+        });
+
     }
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
         @Override
