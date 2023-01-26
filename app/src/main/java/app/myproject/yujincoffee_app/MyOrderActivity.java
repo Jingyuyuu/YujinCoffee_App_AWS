@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -65,6 +66,14 @@ public class MyOrderActivity extends AppCompatActivity {
                         cursor.getInt(5),
                         cursor.getInt(6));
                 item.add(a);
+                Log.e("myorder,item",item.toString());
+                int id=a.get_id();
+                String name=a.getName();
+                int amount=a.getAmount();
+                String ice=a.getIce();
+                String sugar=a.getSugar();
+                int dollar=a.getDollar();
+                Log.e("myorder,item","id="+id+"name="+name+"ice="+ice+"sugar="+sugar+"amount="+amount+"dollar"+dollar);
             }while(cursor.moveToNext());
         }
         //先抓出tem=0的資料
@@ -78,6 +87,7 @@ public class MyOrderActivity extends AppCompatActivity {
                         cursor2.getInt(5),
                         cursor2.getInt(6));
                 item.add(b);
+                Log.e("myorder,item",item.toString());
             }while(cursor.moveToNext());
         }
         adapter=new MyOrderAdapter(item);
