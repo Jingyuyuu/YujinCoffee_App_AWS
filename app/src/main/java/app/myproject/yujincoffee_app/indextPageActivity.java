@@ -107,7 +107,7 @@ public class indextPageActivity extends AppCompatActivity {
             AlertDialog.Builder logoutbtn = new AlertDialog.Builder(indextPageActivity.this);
             logoutbtn.setTitle("登出");
             logoutbtn.setMessage("確定要登出嗎?");
-            logoutbtn.setNegativeButton("是", new DialogInterface.OnClickListener() {
+            logoutbtn.setPositiveButton("是", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     memberDataPre= getSharedPreferences("memberDataPre", MODE_PRIVATE);
@@ -121,7 +121,7 @@ public class indextPageActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
+            logoutbtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 

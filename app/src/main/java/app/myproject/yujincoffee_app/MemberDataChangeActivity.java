@@ -58,55 +58,77 @@ public class MemberDataChangeActivity extends AppCompatActivity {
         binding.memberChangeBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name=binding.nameChangeT.getText().toString();
-                String phone=binding.phoneChangeT.getText().toString();
-                String pwd=binding.pwdChangeT.getText().toString();
-                String pwd2=binding.pwd2ChangeT.getText().toString();
-                Boolean isName=binding.nameChangeT.getText().toString().isEmpty();
-                Boolean isPhone=binding.nameChangeT.getText().toString().isEmpty();
-                Boolean isPwd=binding.nameChangeT.getText().toString().isEmpty();
-                Boolean isPwd2=binding.nameChangeT.getText().toString().isEmpty();
-                if( name!=null && phone!=null  && !isName && !isPhone && ( !pwd.isEmpty() && pwd!=null && pwd.equals(pwd2) )){//pwd跟pwd2要一樣 就不用判斷pwd2是不是空白的了5
-                    JSONObject packet=new JSONObject();
-                    try {
-                        JSONObject newMemberRegData=new JSONObject();
-                        newMemberRegData.put("name",name);
-                        newMemberRegData.put("pwd",pwd);
-                        newMemberRegData.put("phone",phone);
-                        newMemberRegData.put("email",sharedPreferences.getString("email","查無資料"));
-                        packet.put("NewMemberData",newMemberRegData);
-                        Log.e("JSON",packet.toString(4));
-                        //把修改的會員姓名和電話寫入memberDataPre檔案
-                        SharedPreferences.Editor editor=sharedPreferences.edit();
-                        editor.putString("name",binding.nameChangeT.getText().toString());
-                        editor.putString("phone",binding.phoneChangeT.getText().toString());
-                        editor.apply();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                AlertDialog.Builder memberdataChangeBtn = new AlertDialog.Builder(MemberDataChangeActivity.this);
+                memberdataChangeBtn.setTitle("修改會員資料");
+                memberdataChangeBtn.setMessage("確定要修改會員資料?");
+                memberdataChangeBtn.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //送出修改後的資料給server
+                        String name=binding.nameChangeT.getText().toString();
+                        String phone=binding.phoneChangeT.getText().toString();
+                        String pwd=binding.pwdChangeT.getText().toString();
+                        String pwd2=binding.pwd2ChangeT.getText().toString();
+                        Boolean isName=binding.nameChangeT.getText().toString().isEmpty();
+                        Boolean isPhone=binding.nameChangeT.getText().toString().isEmpty();
+                        Boolean isPwd=binding.nameChangeT.getText().toString().isEmpty();
+                        Boolean isPwd2=binding.nameChangeT.getText().toString().isEmpty();
+                        if( name!=null && phone!=null  && !isName && !isPhone && ( !pwd.isEmpty() && pwd!=null && pwd.equals(pwd2) )){//pwd跟pwd2要一樣 就不用判斷pwd2是不是空白的了5
+                            JSONObject packet=new JSONObject();
+                            try {
+                                JSONObject newMemberRegData=new JSONObject();
+                                newMemberRegData.put("name",name);
+                                newMemberRegData.put("pwd",pwd);
+                                newMemberRegData.put("phone",phone);
+                                newMemberRegData.put("email",sharedPreferences.getString("email","查無資料"));
+                                packet.put("NewMemberData",newMemberRegData);
+                                Log.e("JSON",packet.toString(4));
+                                //把修改的會員姓名和電話寫入memberDataPre檔案
+                                SharedPreferences.Editor editor=sharedPreferences.edit();
+                                editor.putString("name",binding.nameChangeT.getText().toString());
+                                editor.putString("phone",binding.phoneChangeT.getText().toString());
+                                editor.apply();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            MediaType mType=MediaType.parse("application/json");
+                            RequestBody body=RequestBody.create(packet.toString(),mType);
+                            //VM IP=20.187.101.131
+                            Request request=new Request.Builder()
+                                    .url("http://20.187.101.131:8216/api/member/reNewMemberData")
+                                    .post(body)
+                                    .build();
+                            Toast.makeText(MemberDataChangeActivity.this, "已送出修改的會員資料", Toast.LENGTH_LONG).show();
+                            SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,memberChangeHandler);
+                            //產生Task準備給executor執行
+                            executorService.execute(apiCaller);
+
+                        }else{
+                            Toast.makeText(MemberDataChangeActivity.this, "請確認輸入相同密碼,且欄位不可空白", Toast.LENGTH_LONG).show();
+                        }
+
+                        Intent intent = new Intent(MemberDataChangeActivity.this, memberdataaPageActivity.class);
+                        startActivity(intent);
                     }
+                });
+                memberdataChangeBtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    MediaType mType=MediaType.parse("application/json");
-                    RequestBody body=RequestBody.create(packet.toString(),mType);
-                    //VM IP=20.187.101.131
-                    Request request=new Request.Builder()
-                            .url("http://192.168.43.21:8216/api/member/reNewMemberData")
-                            .post(body)
-                            .build();
-                    Toast.makeText(MemberDataChangeActivity.this, "已送出修改的會員資料", Toast.LENGTH_LONG).show();
-                    SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,memberChangeHandler);
-                    //產生Task準備給executor執行
-                    executorService.execute(apiCaller);
+                    }
+                });
+                AlertDialog dialog = memberdataChangeBtn.create();
+                dialog.show();
 
-                }else{
-                    Toast.makeText(MemberDataChangeActivity.this, "請確認輸入相同密碼,且欄位不可空白", Toast.LENGTH_LONG).show();
-                }
             }
         });
 
         binding.memberChangeCancleBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(MemberDataChangeActivity.this, memberdataaPageActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -157,7 +179,7 @@ public class MemberDataChangeActivity extends AppCompatActivity {
             AlertDialog.Builder logoutbtn = new AlertDialog.Builder(MemberDataChangeActivity.this);
             logoutbtn.setTitle("登出");
             logoutbtn.setMessage("確定要登出嗎?");
-            logoutbtn.setNegativeButton("是", new DialogInterface.OnClickListener() {
+            logoutbtn.setPositiveButton("是", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     sharedPreferences= getSharedPreferences("memberDataPre", MODE_PRIVATE);
@@ -171,7 +193,7 @@ public class MemberDataChangeActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
+            logoutbtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 

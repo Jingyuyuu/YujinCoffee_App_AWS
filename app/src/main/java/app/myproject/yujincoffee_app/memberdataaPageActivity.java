@@ -73,7 +73,7 @@ public class memberdataaPageActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(packet.toString(), mType);
         //VM IP=20.187.101.131
         Request request = new Request.Builder()
-                .url("http://192.168.43.21:8216/api/member/getMemberData")
+                .url("http://20.187.101.131:8216/api/member/getMemberData")
                 .post(body)
                 .build();
         SimpleeAPIWorker apiCaller = new SimpleeAPIWorker(request, memberDataHandler);
@@ -133,7 +133,8 @@ public class memberdataaPageActivity extends AppCompatActivity {
         binding.cancleChangememberData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(memberdataaPageActivity.this, indextPageActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -222,7 +223,7 @@ public class memberdataaPageActivity extends AppCompatActivity {
             AlertDialog.Builder logoutbtn = new AlertDialog.Builder(memberdataaPageActivity.this);
             logoutbtn.setTitle("登出");
             logoutbtn.setMessage("確定要登出嗎?");
-            logoutbtn.setNegativeButton("是", new DialogInterface.OnClickListener() {
+            logoutbtn.setPositiveButton("是", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     memberDataSharePre= getSharedPreferences("memberDataPre", MODE_PRIVATE);
@@ -236,7 +237,7 @@ public class memberdataaPageActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
+            logoutbtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
