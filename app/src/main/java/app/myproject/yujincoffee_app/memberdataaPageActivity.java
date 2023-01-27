@@ -56,6 +56,31 @@ public class memberdataaPageActivity extends AppCompatActivity {
         String memberEmailDataCheck=memberDataSharePre.getString("email","查無資料");//取得登入後儲存的會員EMAIL
         Log.e("JSON", "會員EMAIL"+memberDataSharePre.getString("email","查無資料"));
         String memberNameDataCheck=memberDataSharePre.getString("name","查無資料");
+        //每次都從雲端抓取會員資料才能取得最新點數資料
+        JSONObject packet = new JSONObject();
+        try {
+            JSONObject memberEmail = new JSONObject();
+            memberEmail.put("email", memberEmailDataCheck);//抓出登入時儲存在SharedPreferance的會員EMAIL
+            packet.put("memberEmail", memberEmail);
+
+            Log.e("JSON", "這裡是從網路下載的會員資料");
+            Toast.makeText(memberdataaPageActivity.this, "已送出EMAIL抓取會員資料", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //把email資料封裝成JSON格式 透過網路傳給Sever
+        MediaType mType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(packet.toString(), mType);
+        //VM IP=20.187.101.131
+        Request request = new Request.Builder()
+                .url("http://192.168.43.21:8216/api/member/getMemberData")
+                .post(body)
+                .build();
+        SimpleeAPIWorker apiCaller = new SimpleeAPIWorker(request, memberDataHandler);
+        //產生Task準備給executor執行
+        executorService.execute(apiCaller);
+
+        /*
         //如果SharedPreferance裡面的memberDataPre檔案裡的name沒有資料，就從網路下載會員資料
         if(memberNameDataCheck.equals("查無資料")) {
             //executorService = Executors.newSingleThreadExecutor();
@@ -95,6 +120,8 @@ public class memberdataaPageActivity extends AppCompatActivity {
             binding.memberPhoneTT.setText(phoneData);
             Log.e("JSON", "這裡是從SharePreferance取出的會員資料");
         }
+
+         */
         binding.toChangeMemberDataPageBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

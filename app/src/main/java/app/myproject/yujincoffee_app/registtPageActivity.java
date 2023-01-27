@@ -46,17 +46,14 @@ public class registtPageActivity extends AppCompatActivity {
                 SharedPreferences.Editor edit=sharedPreferences.edit();
                 String savedEmail=sharedPreferences.getString("email","查無資料");
                 String loginEmail=binding.regEmail.getText().toString();
-                //確認登入成功的帳號與儲存在手機內的會員為同一人 不同則移除儲存的會員資料
-                if(savedEmail.equals(loginEmail)) {
-                    edit.putString("email", loginEmail).commit();//存入登入帳號到memberDataPre檔案
-                }else{
-                    edit.remove("email");
-                    edit.remove("name");
-                    edit.remove("points");
-                    edit.remove("phone");
-                    edit.apply();
-                    edit.putString("email",loginEmail).commit();
-                }
+                //註冊成功代表信箱一定是新的 移除儲存在手機SharePreferance的會員資料
+                edit.remove("email");
+                edit.remove("name");
+                edit.remove("points");
+                edit.remove("phone");
+                edit.apply();
+                //存入註冊帳號到memberDataPre檔案(email)
+                edit.putString("email", loginEmail).commit();
                 Intent intent = new Intent(registtPageActivity.this, indextPageActivity.class);
                 startActivity(intent);
             }else{
