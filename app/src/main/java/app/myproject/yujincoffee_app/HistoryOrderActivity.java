@@ -219,7 +219,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HistoryOrderActivity.this);
                     binding.historyorderlist.setLayoutManager(linearLayoutManager);
                     //建立左滑能刪除的機制
-                    new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(binding.historyorderlist);
+                    //new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(binding.historyorderlist);
                     binding.historyorderlist.setAdapter(Hadapter);
 
 

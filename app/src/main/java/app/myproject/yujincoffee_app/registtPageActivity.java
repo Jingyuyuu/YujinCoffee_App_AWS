@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +32,7 @@ import okhttp3.Response;
 public class registtPageActivity extends AppCompatActivity {
     ActivityRegisttPageBinding binding;
     ExecutorService executorService=Executors.newSingleThreadExecutor();
+    SharedPreferences sharedPreferences;
 
 
     Handler registerResultHandler =new Handler(Looper.getMainLooper()){
@@ -40,6 +42,21 @@ public class registtPageActivity extends AppCompatActivity {
             Bundle bundle=msg.getData();
             if(bundle.getInt("status")==000){
                 Toast.makeText(registtPageActivity.this, "註冊成功", Toast.LENGTH_SHORT).show();
+                sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
+                SharedPreferences.Editor edit=sharedPreferences.edit();
+                String savedEmail=sharedPreferences.getString("email","查無資料");
+                String loginEmail=binding.regEmail.getText().toString();
+                //確認登入成功的帳號與儲存在手機內的會員為同一人 不同則移除儲存的會員資料
+                if(savedEmail.equals(loginEmail)) {
+                    edit.putString("email", loginEmail).commit();//存入登入帳號到memberDataPre檔案
+                }else{
+                    edit.remove("email");
+                    edit.remove("name");
+                    edit.remove("points");
+                    edit.remove("phone");
+                    edit.apply();
+                    edit.putString("email",loginEmail).commit();
+                }
                 Intent intent = new Intent(registtPageActivity.this, indextPageActivity.class);
                 startActivity(intent);
             }else{
