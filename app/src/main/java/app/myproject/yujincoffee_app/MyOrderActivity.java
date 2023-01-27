@@ -39,6 +39,7 @@ import app.myproject.yujincoffee_app.Adapter.MyOrderAdapter;
 import app.myproject.yujincoffee_app.Model.Product.ProductModel;
 import app.myproject.yujincoffee_app.Modle.Util.SimpleeAPIWorker;
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
+import app.myproject.yujincoffee_app.Part2.ProductOrderActivity;
 import app.myproject.yujincoffee_app.databinding.ActivityMyOrderBinding;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -118,76 +119,92 @@ public class MyOrderActivity extends AppCompatActivity {
         binding.orderSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //取得當前時間
-                SimpleDateFormat simpleFormatter =new SimpleDateFormat("yyyy-MM-DD HH:mm");
-                Date curDate=new Date(System.currentTimeMillis());
-                String time= simpleFormatter.format(curDate);
-                //取得會員Email
-                sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
-                String email=sharedPreferences.getString("email","查無資料");
+                //彈出確認是否送出訂單的按鈕
+                AlertDialog.Builder orderSubmitBtn = new AlertDialog.Builder(MyOrderActivity.this);
+                orderSubmitBtn.setTitle("送出訂單");
+                orderSubmitBtn.setMessage("確定要送出訂單嗎? 送出即不可更改");
+                orderSubmitBtn.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //取得當前時間
+                        SimpleDateFormat simpleFormatter =new SimpleDateFormat("yyyy-MM-DD HH:mm");
+                        Date curDate=new Date(System.currentTimeMillis());
+                        String time= simpleFormatter.format(curDate);
+                        //取得會員Email
+                        sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
+                        String email=sharedPreferences.getString("email","查無資料");
 
+                        String name;
+                        int amount;
+                        String ice;
+                        String sugar;
+                        int dollar;
 
-                String name;
-                int amount;
-                String ice;
-                String sugar;
-                int dollar;
-
-                JSONObject packet=new JSONObject();
-                JSONObject OrderMst=new JSONObject();
-                JSONArray OrderDetail=new JSONArray();
-                try {
-                    packet.put("OrderMst",OrderMst);
-                    OrderMst.put("memberEmail",email);
-                    OrderMst.put("date",time);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                //抓出沒被滑掉的訂單資料
-                for(int i=0;i<item.size();i++){
-                    ProductModel a=item.get(i);
-                    name=a.getName();
-                    ice=a.getIce();
-                    sugar=a.getSugar();
-                    dollar=a.getDollar();
-                    amount=a.getAmount();
-                    JSONObject drink=new JSONObject();
-                    try {
-                        drink.put("name",name);
-                        //如果甜度跟冰量==null 則直接放入字串"null"
-                        if (a.getIce().isEmpty()||a.getIce().equals(null)) {
-                            drink.put("ice","null");
-                        }else{
-                            drink.put("ice",ice);
+                        JSONObject packet=new JSONObject();
+                        JSONObject OrderMst=new JSONObject();
+                        JSONArray OrderDetail=new JSONArray();
+                        try {
+                            packet.put("OrderMst",OrderMst);
+                            OrderMst.put("memberEmail",email);
+                            OrderMst.put("date",time);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
                         }
-                        if (a.getSugar().isEmpty()||a.getSugar().equals(null)) {
-                            drink.put("sugar", "null");
-                        }else{
-                            drink.put("sugar", sugar);
+                        //抓出沒被滑掉的訂單資料
+                        for(int x=0;x<item.size();x++){
+                            ProductModel a=item.get(x);
+                            name=a.getName();
+                            ice=a.getIce();
+                            sugar=a.getSugar();
+                            dollar=a.getDollar();
+                            amount=a.getAmount();
+                            JSONObject drink=new JSONObject();
+                            try {
+                                drink.put("name",name);
+                                //如果甜度跟冰量==null 則直接放入字串"null"
+                                if (a.getIce().isEmpty()||a.getIce().equals(null)) {
+                                    drink.put("ice","null");
+                                }else{
+                                    drink.put("ice",ice);
+                                }
+                                if (a.getSugar().isEmpty()||a.getSugar().equals(null)) {
+                                    drink.put("sugar", "null");
+                                }else{
+                                    drink.put("sugar", sugar);
+                                }
+                                drink.put("amount", amount);
+                                drink.put("dollar", dollar);
+                                OrderDetail.put(drink);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
-                        drink.put("amount", amount);
-                        drink.put("dollar", dollar);
-                        OrderDetail.put(drink);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
+                        try {
+                            OrderMst.put("OrderDetail",OrderDetail);
+                            Log.e("JSON",packet.toString());
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        MediaType mType=MediaType.parse("application/json");
+                        RequestBody body=RequestBody.create(packet.toString(),mType);
+                        //VM IP=20.187.101.131
+                        Request request=new Request.Builder()
+                                .url("http:/192.168.43.21:8216/api/product/orderSubmit")
+                                .post(body)
+                                .build();
+                        SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,orderSubmitHandler);
+                        //產生Task準備給executor執行
+                        executorService.execute(apiCaller);
                     }
-                }
-                try {
-                    OrderMst.put("OrderDetail",OrderDetail);
-                    Log.e("JSON",packet.toString());
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                MediaType mType=MediaType.parse("application/json");
-                RequestBody body=RequestBody.create(packet.toString(),mType);
-                //VM IP=20.187.101.131
-                Request request=new Request.Builder()
-                        .url("http:/192.168.43.21:8216/api/product/orderSubmit")
-                        .post(body)
-                        .build();
-                SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,orderSubmitHandler);
-                //產生Task準備給executor執行
-                executorService.execute(apiCaller);
+                });
+                orderSubmitBtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog dialog = orderSubmitBtn.create();
+                dialog.show();
 
             }
         });
@@ -287,6 +304,9 @@ public class MyOrderActivity extends AppCompatActivity {
             Bundle bundle=msg.getData();
             if(bundle.getInt("status")==1000){
                 Toast.makeText(MyOrderActivity.this, "訂單送出成功", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MyOrderActivity.this, MenuListActivity.class);
+                startActivity(intent);
                 //Intent intent = new Intent(MyOrderActivity.this, indextPageActivity.class);
                 //startActivity(intent);
             }else{

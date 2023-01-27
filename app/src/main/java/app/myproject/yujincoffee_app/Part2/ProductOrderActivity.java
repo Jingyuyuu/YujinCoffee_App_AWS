@@ -1,16 +1,22 @@
 package app.myproject.yujincoffee_app.Part2;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,12 +26,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import app.myproject.yujincoffee_app.Adapter.OrderListAdapter;
+import app.myproject.yujincoffee_app.HistoryOrderActivity;
 import app.myproject.yujincoffee_app.Model.Product.DrinkModel;
 import app.myproject.yujincoffee_app.Model.Product.ProductModel;
+import app.myproject.yujincoffee_app.MyFavoriteActivity;
+import app.myproject.yujincoffee_app.MyOrderActivity;
+import app.myproject.yujincoffee_app.PointChangeActivity;
+import app.myproject.yujincoffee_app.R;
 import app.myproject.yujincoffee_app.databinding.ActivityProductOrderBinding;
+import app.myproject.yujincoffee_app.logPageActivity;
+import app.myproject.yujincoffee_app.memberdataaPageActivity;
+import app.myproject.yujincoffee_app.storelistActivity;
 
 public class ProductOrderActivity extends AppCompatActivity {
     ActivityProductOrderBinding binding;
+    SharedPreferences memberDataSharePre;
     private SQLiteDatabase db;
     private ArrayList<DrinkModel> productSeries;
 
@@ -63,6 +78,10 @@ public class ProductOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityProductOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         //接收MenuListActivity傳過來的bundle
         Bundle bundle=getIntent().getBundleExtra("data");
         int position = bundle.getInt("position");
@@ -207,6 +226,7 @@ public class ProductOrderActivity extends AppCompatActivity {
                                             db.execSQL("insert into tempProductOrder (shopName,shopTem,shopSugar,shopIce,shopAmount,shopPrice,date) values (?,?,?,?,?,?,?);",
                                                     new Object[]{shopName, shopTem, null, null, shopAmount, shopPrice, today});
                                             Toast.makeText(ProductOrderActivity.this, "已加入到訂單", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ProductOrderActivity.this, "可至<我的訂單>查看", Toast.LENGTH_LONG).show();
                                         } else {
                                             Toast.makeText(ProductOrderActivity.this, "數量不能是負數", Toast.LENGTH_SHORT).show();
                                         }
@@ -221,6 +241,8 @@ public class ProductOrderActivity extends AppCompatActivity {
                             Toast.makeText(ProductOrderActivity.this, "請輸入正確數量", Toast.LENGTH_SHORT).show();
                         }
                         Log.d("訂單",shopSugar+" "+shopIce);
+                        Intent intent = new Intent(ProductOrderActivity.this, MenuListActivity.class);
+                        startActivity(intent);
 
                     }
                 });
@@ -323,5 +345,85 @@ public class ProductOrderActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         db.close();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //製作Menu
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+
+        //用id判斷點了哪個選項
+        if(id == R.id.membersetting){
+            Intent intent=new Intent(ProductOrderActivity.this,memberdataaPageActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if(id == R.id.myorder){
+            Intent intent=new Intent(ProductOrderActivity.this, MyOrderActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        else if(id == R.id.itemmenu){
+            Intent intent=new Intent(ProductOrderActivity.this, MenuListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        else if(id == R.id.historyorder){
+            Intent intent=new Intent(ProductOrderActivity.this, HistoryOrderActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if(id == R.id.myfavorite){
+            Intent intent=new Intent(ProductOrderActivity.this, MyFavoriteActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.storelists) {
+            Intent intent = new Intent(ProductOrderActivity.this, storelistActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.pointchange){
+            Intent intent=new Intent(ProductOrderActivity.this, PointChangeActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.logout) {
+            AlertDialog.Builder logoutbtn = new AlertDialog.Builder(ProductOrderActivity.this);
+            logoutbtn.setTitle("登出");
+            logoutbtn.setMessage("確定要登出嗎?");
+            logoutbtn.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    memberDataSharePre= getSharedPreferences("memberDataPre", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=memberDataSharePre.edit();
+                    editor.remove("name");
+                    editor.remove("points");
+                    editor.remove("phone");
+                    editor.remove("email");
+                    editor.apply();
+                    Intent intent = new Intent(ProductOrderActivity.this, logPageActivity.class);
+                    startActivity(intent);
+                }
+            });
+            logoutbtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog dialog = logoutbtn.create();
+            dialog.show();
+        }else if(id ==android.R.id.home){
+            //返回鍵動作
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
