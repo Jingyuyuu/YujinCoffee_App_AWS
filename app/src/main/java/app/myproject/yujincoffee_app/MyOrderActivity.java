@@ -91,14 +91,6 @@ public class MyOrderActivity extends AppCompatActivity {
                         cursor.getInt(5),
                         cursor.getInt(6));
                 item.add(a);
-                Log.e("myorder,item",item.toString());
-                int id=a.get_id();
-                String name=a.getName();
-                int amount=a.getAmount();
-                String ice=a.getIce();
-                String sugar=a.getSugar();
-                int dollar=a.getDollar();
-                Log.e("myorder,item","id="+id+"name="+name+"ice="+ice+"sugar="+sugar+"amount="+amount+"dollar"+dollar);
             }while(cursor.moveToNext());
         }
         //先抓出tem=0的資料
@@ -135,7 +127,6 @@ public class MyOrderActivity extends AppCompatActivity {
                 String email=sharedPreferences.getString("email","查無資料");
 
 
-
                 String name;
                 int amount;
                 String ice;
@@ -163,8 +154,17 @@ public class MyOrderActivity extends AppCompatActivity {
                     JSONObject drink=new JSONObject();
                     try {
                         drink.put("name",name);
-                        drink.put("ice",ice);
-                        drink.put("sugar", sugar);
+                        //如果甜度跟冰量==null 則直接放入字串"null"
+                        if (a.getIce().isEmpty()||a.getIce().equals(null)) {
+                            drink.put("ice","null");
+                        }else{
+                            drink.put("ice",ice);
+                        }
+                        if (a.getSugar().isEmpty()||a.getSugar().equals(null)) {
+                            drink.put("sugar", "null");
+                        }else{
+                            drink.put("sugar", sugar);
+                        }
                         drink.put("amount", amount);
                         drink.put("dollar", dollar);
                         OrderDetail.put(drink);
@@ -279,6 +279,7 @@ public class MyOrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //送出訂單後接收Server回傳訊息的Handler
     Handler orderSubmitHandler=new Handler(Looper.getMainLooper()){
         @Override
         public void handleMessage(@NonNull Message msg) {

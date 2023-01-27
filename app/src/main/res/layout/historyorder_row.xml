@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="40dp"
     android:layout_marginLeft="20dp"
     android:layout_marginTop="2dp"
     android:layout_marginRight="20dp"
@@ -16,28 +16,16 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <TextView
             android:id="@+id/orderedName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="芝芝金萱水果"
+            android:text="芝芝金萱"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.038"
-            app:layout_constraintStart_toEndOf="@+id/no"
+            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintStart_toEndOf="@+id/orderedNo"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.517" />
+            app:layout_constraintVertical_bias="0.473" />
 
         <TextView
             android:id="@+id/orderedSugar"
@@ -46,10 +34,10 @@
             android:text="無糖"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.341"
-            app:layout_constraintStart_toEndOf="@+id/no"
+            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintStart_toEndOf="@+id/orderedName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.482" />
+            app:layout_constraintVertical_bias="0.473" />
 
         <TextView
             android:id="@+id/orderedIce"
@@ -58,10 +46,10 @@
             android:text="@string/hank_ice"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.066"
-            app:layout_constraintStart_toEndOf="@+id/orderedSugar"
+            app:layout_constraintHorizontal_bias="0.306"
+            app:layout_constraintStart_toEndOf="@+id/orderedName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.482" />
+            app:layout_constraintVertical_bias="0.526" />
 
         <TextView
             android:id="@+id/textView34"
@@ -70,10 +58,22 @@
             android:text="*"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.259"
-            app:layout_constraintStart_toEndOf="@+id/textView32"
+            app:layout_constraintHorizontal_bias="0.758"
+            app:layout_constraintStart_toEndOf="@+id/orderedName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516" />
+            app:layout_constraintVertical_bias="0.476" />
+
+        <TextView
+            android:id="@+id/orderedNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.523" />
 
         <TextView
             android:id="@+id/orderedAmount"
@@ -82,22 +82,23 @@
             android:text="@string/hank_quantity"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.218"
-            app:layout_constraintStart_toEndOf="@+id/textView34"
+            app:layout_constraintHorizontal_bias="0.893"
+            app:layout_constraintStart_toEndOf="@+id/orderedName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.482" />
+            app:layout_constraintVertical_bias="0.526" />
 
         <TextView
             android:id="@+id/orderedPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="68dp"
             android:text="@string/hank_price"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.629"
-            app:layout_constraintStart_toEndOf="@+id/no"
+            app:layout_constraintHorizontal_bias="0.739"
+            app:layout_constraintStart_toEndOf="@+id/orderedName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.482" />
+            app:layout_constraintVertical_bias="0.473" />
 
         <TextView
             android:id="@+id/textView32"
@@ -106,9 +107,9 @@
             android:text="@string/hank_dollar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.631"
+            app:layout_constraintHorizontal_bias="0.65"
             app:layout_constraintStart_toEndOf="@+id/orderedName"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.517" />
+            app:layout_constraintVertical_bias="0.473" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

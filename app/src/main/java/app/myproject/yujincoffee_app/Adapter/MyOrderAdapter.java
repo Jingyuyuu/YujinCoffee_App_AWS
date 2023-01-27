@@ -63,11 +63,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
        public ViewHolder(@NonNull View itemView) {
            super(itemView);
            this.no=itemView.findViewById(R.id.no);
-           this.shopName=itemView.findViewById(R.id.shopName);
-           this.shopSugar=itemView.findViewById(R.id.shopSugar);
-           this.shopIce=itemView.findViewById(R.id.shopIce);
-           this.shopAmount=itemView.findViewById(R.id.shopAmount);
-           this.shopDollar=itemView.findViewById(R.id.shopDollar);
+           this.shopName=itemView.findViewById(R.id.orderedName);
+           this.shopSugar=itemView.findViewById(R.id.orderedSugar);
+           this.shopIce=itemView.findViewById(R.id.orderedIce);
+           this.shopAmount=itemView.findViewById(R.id.orderedAmount);
+           this.shopDollar=itemView.findViewById(R.id.orderedPrice);
 
        }
    }

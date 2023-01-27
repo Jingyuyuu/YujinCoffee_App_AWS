@@ -87,6 +87,10 @@ public class indextPageActivity extends AppCompatActivity {
             Intent intent = new Intent(indextPageActivity.this, MyFavoriteActivity.class);
             startActivity(intent);
 
+        }else if (id == R.id.storelists) {
+            Intent intent = new Intent(indextPageActivity.this, storelistActivity.class);
+            startActivity(intent);
+
         }else if (id == R.id.pointchange) {
             Intent intent = new Intent(indextPageActivity.this, PointChangeActivity.class);
             startActivity(intent);
@@ -120,6 +124,7 @@ public class indextPageActivity extends AppCompatActivity {
         }
         return true;
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

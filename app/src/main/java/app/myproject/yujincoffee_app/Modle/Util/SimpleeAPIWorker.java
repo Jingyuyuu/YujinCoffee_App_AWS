@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import okhttp3.OkHttpClient;
@@ -63,9 +64,33 @@ public class SimpleeAPIWorker implements Runnable{
                 bundle.putString("phone",result.getJSONObject("data").getString("phone"));
                 bundle.putInt("status",result.getInt("status"));
                 Log.e("999",bundle.getString("email"));
+
             }else if(result.getInt("status")==1000){//訂單送出成功
                 bundle.putString("mesg",result.getString("mesg"));
                 bundle.putInt("status",result.getInt("status"));
+
+            }else if(result.getInt("status")==2000){//成功接收回傳的歷史訂單
+                bundle.putString("mesg",result.getString("mesg"));
+                bundle.putInt("status",result.getInt("status"));
+                //把歷史訂單丟到Bundle回傳HistoryOrderActivity
+                Log.e("API","有執行到此");
+                JSONArray orderList=result.getJSONArray("data");
+                bundle.putString("orderList",result.getJSONArray("data").toString());
+                /*
+                for(int i=0;i<orderList.length();i++){
+                    bundle.putString("name",result.getJSONArray("data").getJSONObject(i).getString("name"));
+                    bundle.putString("sugar",result.getJSONArray("data").getJSONObject(i).getString("sugar"));
+                    bundle.putString("ice",result.getJSONArray("data").getJSONObject(i).getString("ice"));
+                    bundle.putString("dollar",result.getJSONArray("data").getJSONObject(i).getString("dollar"));
+                    bundle.putString("amount",result.getJSONArray("data").getJSONObject(i).getString("amount"));
+                    Log.e("API",result.getJSONArray("data").getJSONObject(i).getString("name"));
+                    Log.e("API",result.getJSONArray("data").getJSONObject(i).getString("ice"));
+                    Log.e("API",result.getJSONArray("data").getJSONObject(i).getString("sugar"));
+                    Log.e("API",result.getJSONArray("data").getJSONObject(i).getInt("dollar")+"");
+                    Log.e("API",result.getJSONArray("data").getJSONObject(i).getInt("amount")+"");
+                }
+                 */
+                Log.e("API","有執行到此2");
 
             }else{
                 bundle.putString("mesg","系統錯誤，請洽程式開發人員");

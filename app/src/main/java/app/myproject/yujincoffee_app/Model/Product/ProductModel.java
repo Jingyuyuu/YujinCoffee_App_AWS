@@ -27,6 +27,14 @@ public class ProductModel {
         this.dollar=dollar;
     }
 
+    public ProductModel(String name,String sugar, String ice, int amount, int dollar) {
+        this.name = name;
+        this.sugar = sugar;
+        this.ice = ice;
+        this.amount = amount;
+        this.dollar = dollar;
+    }
+
     public int get_id() {
         return _id;
     }
