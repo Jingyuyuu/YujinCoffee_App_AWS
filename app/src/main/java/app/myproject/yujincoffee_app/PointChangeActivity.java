@@ -70,8 +70,7 @@ public class PointChangeActivity extends AppCompatActivity {
             Intent intent=new Intent(PointChangeActivity.this,PointChangeActivity.class);
             startActivity(intent);
         }
-        else if(id == R.id.logout){
-
+        else if (id == R.id.logout) {
             AlertDialog.Builder logoutbtn = new AlertDialog.Builder(PointChangeActivity.this);
             logoutbtn.setTitle("登出");
             logoutbtn.setMessage("確定要登出嗎?");
@@ -85,6 +84,8 @@ public class PointChangeActivity extends AppCompatActivity {
                     editor.remove("phone");
                     editor.remove("email");
                     editor.apply();
+                    Intent intent = new Intent(PointChangeActivity.this, logPageActivity.class);
+                    startActivity(intent);
                 }
             });
             logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
@@ -95,8 +96,7 @@ public class PointChangeActivity extends AppCompatActivity {
             });
             AlertDialog dialog = logoutbtn.create();
             dialog.show();
-        }
-        else if(id ==android.R.id.home){
+        }else if(id ==android.R.id.home){
             //返回鍵動作
             finish();
         }

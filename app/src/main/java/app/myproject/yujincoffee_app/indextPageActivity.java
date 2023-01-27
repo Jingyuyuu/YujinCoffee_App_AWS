@@ -40,6 +40,13 @@ public class indextPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.menuImgV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(indextPageActivity.this,MenuListActivity.class);
+                startActivity(intent);
+            }
+        });
         binding.newsImgV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +54,7 @@ public class indextPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,8 +1,11 @@
 package app.myproject.yujincoffee_app;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +13,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import app.myproject.yujincoffee_app.Modle.Util.SimpleeAPIWorker;
+import app.myproject.yujincoffee_app.Part2.MenuListActivity;
 import app.myproject.yujincoffee_app.databinding.ActivityMemberDataChangeBinding;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -29,6 +35,7 @@ import okhttp3.RequestBody;
 
 public class MemberDataChangeActivity extends AppCompatActivity {
     ActivityMemberDataChangeBinding binding;
+    ActionBar actionBar;
     ExecutorService executorService;
 
     SharedPreferences sharedPreferences;
@@ -39,7 +46,12 @@ public class MemberDataChangeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityMemberDataChangeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         executorService = Executors.newSingleThreadExecutor();
+
+        actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         sharedPreferences = getSharedPreferences("memberDataPre", MODE_PRIVATE);
         binding.nameChangeT.setText(sharedPreferences.getString("name","查無資料"));
         binding.phoneChangeT.setText(sharedPreferences.getString("phone","查無資料"));
@@ -91,7 +103,90 @@ public class MemberDataChangeActivity extends AppCompatActivity {
             }
         });
 
+        binding.memberChangeCancleBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
+    //Menu選單(右上角)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //製作Menu
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id=item.getItemId();
+
+        //用id判斷點了哪個選項
+        if(id == R.id.membersetting){
+            Intent intent=new Intent(MemberDataChangeActivity.this,memberdataaPageActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.myorder){
+            Intent intent=new Intent(MemberDataChangeActivity.this, MyOrderActivity.class);
+            startActivity(intent);
+        }
+
+        else if(id == R.id.itemmenu){
+            Intent intent=new Intent(MemberDataChangeActivity.this, MenuListActivity.class);
+            startActivity(intent);
+        }
+
+        else if(id == R.id.historyorder){
+            Intent intent=new Intent(MemberDataChangeActivity.this, HistoryOrderActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.myfavorite){
+            Intent intent=new Intent(MemberDataChangeActivity.this, MyFavoriteActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.storelists) {
+            Intent intent = new Intent(MemberDataChangeActivity.this, storelistActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.pointchange){
+            Intent intent=new Intent(MemberDataChangeActivity.this, PointChangeActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.logout) {
+            AlertDialog.Builder logoutbtn = new AlertDialog.Builder(MemberDataChangeActivity.this);
+            logoutbtn.setTitle("登出");
+            logoutbtn.setMessage("確定要登出嗎?");
+            logoutbtn.setNegativeButton("是", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    sharedPreferences= getSharedPreferences("memberDataPre", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.remove("name");
+                    editor.remove("points");
+                    editor.remove("phone");
+                    editor.remove("email");
+                    editor.apply();
+                    Intent intent = new Intent(MemberDataChangeActivity.this, logPageActivity.class);
+                    startActivity(intent);
+                }
+            });
+            logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            AlertDialog dialog = logoutbtn.create();
+            dialog.show();
+        }else if(id ==android.R.id.home){
+            //返回鍵動作
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     Handler memberChangeHandler=new Handler(Looper.getMainLooper()){
         @Override
         public void handleMessage(@NonNull Message msg) {

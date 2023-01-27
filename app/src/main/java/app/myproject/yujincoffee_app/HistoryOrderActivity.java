@@ -100,13 +100,6 @@ public class HistoryOrderActivity extends AppCompatActivity {
         binding.historyorderlist.setAdapter(Hadapter);
 
          */
-
-
-
-
-
-
-
     }
 
 
@@ -167,9 +160,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
         else if(id == R.id.pointchange){
             Intent intent=new Intent(HistoryOrderActivity.this,PointChangeActivity.class);
             startActivity(intent);
-        }
-        else if(id == R.id.logout){
-
+        }else if (id == R.id.logout) {
             AlertDialog.Builder logoutbtn = new AlertDialog.Builder(HistoryOrderActivity.this);
             logoutbtn.setTitle("登出");
             logoutbtn.setMessage("確定要登出嗎?");
@@ -183,6 +174,8 @@ public class HistoryOrderActivity extends AppCompatActivity {
                     editor.remove("phone");
                     editor.remove("email");
                     editor.apply();
+                    Intent intent = new Intent(HistoryOrderActivity.this, logPageActivity.class);
+                    startActivity(intent);
                 }
             });
             logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
@@ -193,8 +186,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
             });
             AlertDialog dialog = logoutbtn.create();
             dialog.show();
-        }
-        else if(id ==android.R.id.home){
+        }else if(id ==android.R.id.home){
             //返回鍵動作
             finish();
         }

@@ -22,7 +22,7 @@ import app.myproject.yujincoffee_app.databinding.ActivityStorelistBinding;
 
 public class storelistActivity extends AppCompatActivity {
 
-     ActivityStorelistBinding binding;
+    ActivityStorelistBinding binding;
     SharedPreferences memberDataPre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +70,7 @@ public class storelistActivity extends AppCompatActivity {
         else if(id == R.id.pointchange){
             Intent intent=new Intent(storelistActivity.this,PointChangeActivity.class);
             startActivity(intent);
-        }
-        else if(id == R.id.logout){
-
+        }else if (id == R.id.logout) {
             AlertDialog.Builder logoutbtn = new AlertDialog.Builder(storelistActivity.this);
             logoutbtn.setTitle("登出");
             logoutbtn.setMessage("確定要登出嗎?");
@@ -86,6 +84,8 @@ public class storelistActivity extends AppCompatActivity {
                     editor.remove("phone");
                     editor.remove("email");
                     editor.apply();
+                    Intent intent = new Intent(storelistActivity.this, logPageActivity.class);
+                    startActivity(intent);
                 }
             });
             logoutbtn.setPositiveButton("否", new DialogInterface.OnClickListener() {
@@ -96,9 +96,8 @@ public class storelistActivity extends AppCompatActivity {
             });
             AlertDialog dialog = logoutbtn.create();
             dialog.show();
-        }
-        //點選返回鍵
-        else if(id ==android.R.id.home){
+        }else if(id ==android.R.id.home){
+            //返回鍵動作
             finish();
         }
         return super.onOptionsItemSelected(item);

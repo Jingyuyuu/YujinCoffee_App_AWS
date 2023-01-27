@@ -105,7 +105,7 @@ public class MyOrderActivity extends AppCompatActivity {
                         cursor2.getInt(6));
                 item.add(b);
                 Log.e("myorder,item",item.toString());
-            }while(cursor.moveToNext());
+            }while(cursor2.moveToNext());
         }
         adapter=new MyOrderAdapter(item);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyOrderActivity.this);
