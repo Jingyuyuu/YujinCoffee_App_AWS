@@ -199,6 +199,7 @@ public class MyOrderActivity extends AppCompatActivity {
                         SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,orderSubmitHandler);
                         //產生Task準備給executor執行
                         executorService.execute(apiCaller);
+                        db.execSQL("delete from tempProductOrder;");
                     }
                 });
                 orderSubmitBtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
@@ -210,6 +211,14 @@ public class MyOrderActivity extends AppCompatActivity {
                 AlertDialog dialog = orderSubmitBtn.create();
                 dialog.show();
 
+            }
+        });
+
+        binding.orderCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MyOrderActivity.this,MenuListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -319,10 +328,9 @@ public class MyOrderActivity extends AppCompatActivity {
             if(bundle.getInt("status")==1000){
                 Toast.makeText(MyOrderActivity.this, "訂單送出成功", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(MyOrderActivity.this, MenuListActivity.class);
+                Intent intent = new Intent(MyOrderActivity.this, indextPageActivity.class);
                 startActivity(intent);
-                //Intent intent = new Intent(MyOrderActivity.this, indextPageActivity.class);
-                //startActivity(intent);
+
             }else{
                 Toast.makeText(MyOrderActivity.this, bundle.getString("mesg"), Toast.LENGTH_LONG).show();
             }

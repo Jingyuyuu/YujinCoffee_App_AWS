@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,36 +34,7 @@ public class registtPageActivity extends AppCompatActivity {
     ActivityRegisttPageBinding binding;
     ExecutorService executorService=Executors.newSingleThreadExecutor();
     SharedPreferences sharedPreferences;
-
-
-    Handler registerResultHandler =new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            Bundle bundle=msg.getData();
-            if(bundle.getInt("status")==000){
-                Toast.makeText(registtPageActivity.this, "註冊成功", Toast.LENGTH_SHORT).show();
-                sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
-                SharedPreferences.Editor edit=sharedPreferences.edit();
-                String savedEmail=sharedPreferences.getString("email","查無資料");
-                String loginEmail=binding.regEmail.getText().toString();
-                //註冊成功代表信箱一定是新的 移除儲存在手機SharePreferance的會員資料
-                edit.remove("email");
-                edit.remove("name");
-                edit.remove("points");
-                edit.remove("phone");
-                edit.apply();
-                //存入註冊帳號到memberDataPre檔案(email)
-                edit.putString("email", loginEmail).commit();
-                Intent intent = new Intent(registtPageActivity.this, indextPageActivity.class);
-                startActivity(intent);
-            }else{
-                Toast.makeText(registtPageActivity.this, bundle.getString("mesg"), Toast.LENGTH_LONG).show();
-            }
-
-        }
-    };
-
+    SQLiteDatabase db;
 
 
     @Override
@@ -133,6 +105,34 @@ public class registtPageActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    Handler registerResultHandler =new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            Bundle bundle=msg.getData();
+            if(bundle.getInt("status")==000){
+                Toast.makeText(registtPageActivity.this, "註冊成功", Toast.LENGTH_SHORT).show();
+                sharedPreferences =getSharedPreferences("memberDataPre",MODE_PRIVATE);
+                SharedPreferences.Editor edit=sharedPreferences.edit();
+                String savedEmail=sharedPreferences.getString("email","查無資料");
+                String loginEmail=binding.regEmail.getText().toString();
+                //註冊成功代表信箱一定是新的 移除儲存在手機SharePreferance的會員資料
+                edit.remove("email");
+                edit.remove("name");
+                edit.remove("points");
+                edit.remove("phone");
+                edit.apply();
+                //存入註冊帳號到memberDataPre檔案(email)
+                edit.putString("email", loginEmail).commit();
+                Intent intent = new Intent(registtPageActivity.this, indextPageActivity.class);
+                startActivity(intent);
+            }else{
+                Toast.makeText(registtPageActivity.this, bundle.getString("mesg"), Toast.LENGTH_LONG).show();
+            }
+
+        }
+    };
     /*
     class SimpleAPIWorker implements Runnable{
         OkHttpClient client;

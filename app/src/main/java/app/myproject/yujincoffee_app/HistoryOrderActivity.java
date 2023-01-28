@@ -18,6 +18,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -84,6 +85,14 @@ public class HistoryOrderActivity extends AppCompatActivity {
         SimpleeAPIWorker apiCaller = new SimpleeAPIWorker(request,HistoryOrderHandler);
         //產生Task準備給executor執行
         executorService.execute(apiCaller);
+
+        binding.backToIndexBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HistoryOrderActivity.this,indextPageActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //還沒抓出雲端訂單資料放到item
         /*
