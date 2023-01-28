@@ -164,13 +164,15 @@ public class MyOrderActivity extends AppCompatActivity {
                             try {
                                 drink.put("name",name);
                                 //如果甜度跟冰量==null 則直接放入字串"null"
-                                if (a.getIce().isEmpty()||a.getIce().equals(null)) {
-                                    drink.put("ice","null");
+                                if (ice==null||a.getIce().equals(null)) {
+                                    drink.put("ice","無");
+                                    Log.e("JSON","ice="+a.getIce());
                                 }else{
                                     drink.put("ice",ice);
                                 }
-                                if (a.getSugar().isEmpty()||a.getSugar().equals(null)) {
-                                    drink.put("sugar", "null");
+                                if (sugar==null||a.getSugar().equals(null)) {
+                                    drink.put("sugar", "無");
+                                    Log.e("JSON","sugar="+a.getSugar());
                                 }else{
                                     drink.put("sugar", sugar);
                                 }
