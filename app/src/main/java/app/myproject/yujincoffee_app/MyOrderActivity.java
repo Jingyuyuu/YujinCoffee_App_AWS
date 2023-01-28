@@ -172,7 +172,7 @@ public class MyOrderActivity extends AppCompatActivity {
                                 }
                                 if (sugar==null||a.getSugar().equals(null)) {
                                     drink.put("sugar", "無");
-                                    Log.e("JSON","sugar="+a.getSugar());
+                                    Log.e("JSON","sugar="+a.getSugar());//
                                 }else{
                                     drink.put("sugar", sugar);
                                 }
