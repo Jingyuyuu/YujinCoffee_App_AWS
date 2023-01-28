@@ -30,7 +30,7 @@ public class indextPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityIndextPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
 
 
         binding.memberDataImgV.setOnClickListener(new View.OnClickListener() {

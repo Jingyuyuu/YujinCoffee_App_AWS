@@ -1,5 +1,6 @@
 package app.myproject.yujincoffee_app.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import app.myproject.yujincoffee_app.Model.Product.ProductModel;
+import app.myproject.yujincoffee_app.Part2.ItemTouchAdapter;
 import app.myproject.yujincoffee_app.R;
 
 
-public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
+public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> implements ItemTouchAdapter {
     ArrayList<ProductModel> item;
 
     public MyOrderAdapter(ArrayList<ProductModel> item) {
@@ -38,18 +40,31 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             holder.shopSugar.setText(item.get(position).getSugar());
             holder.shopIce.setText(item.get(position).getIce());
         }else{
-            holder.no.setText(Integer.toString(position));
+            holder.no.setText(Integer.toString(position+1));
             holder.shopName.setText(item.get(position).getName());
             holder.shopAmount.setText(Integer.toString(item.get(position).getAmount()));
             holder.shopDollar.setText(Integer.toString(item.get(position).getDollar()));
-            holder.shopSugar.setVisibility(View.INVISIBLE);
-            holder.shopIce.setVisibility(View.INVISIBLE);
+            holder.shopSugar.setText(null);
+            holder.shopIce.setText(null);
         }
     }
 
     @Override
     public int getItemCount() {
         return item.size();
+    }
+
+    @Override
+    public void onItemDissmiss(int position) {
+        item.remove(position);
+        for(int i=0;i<item.size();i++){
+            String name=item.get(i).getName();
+            String ice = item.get(i).getIce();
+            String sugar =item.get(i).getSugar();
+            int amount = item.get(i).getAmount();
+            Log.i("刪除後訂單:",name+" ,"+ice+" ,"+sugar+" ,"+amount+" ,");
+        }
+
     }
 
 

@@ -50,6 +50,17 @@ public class MainActivity extends AppCompatActivity {
             "price integer,"+
             "pic text" +
             ");";
+    private String createTable2="create table if not exists tempProductOrder("+
+            "_id integer"+" PRIMARY KEY AUTOINCREMENT,"+
+            "shopName text,"+
+            "shopTem integer,"+
+            "shopSugar text,"+
+            "shopIce text,"+
+            "shopAmount integer,"+
+            "shopPrice integer,"+
+            "date text"+
+            ");";
+
     Handler handler = new Handler(Looper.getMainLooper()){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -81,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
         //創立資料表
         db.execSQL(createTable);
+        db.execSQL(createTable2);
         //連線springBoot交給SimpleAPIWork做處理並取得產品資料的json格式檔案
         request=new Request.Builder().url("http://192.168.255.104:8261/api/product/data").build();
         //設定執行續
