@@ -15,7 +15,6 @@ import android.view.View;
 
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
 import app.myproject.yujincoffee_app.databinding.ActivityIndextPageBinding;
-import app.myproject.yujincoffee_app.databinding.ActivityLogPageBinding;
 
 public class indextPageActivity extends AppCompatActivity {
 
@@ -68,7 +67,12 @@ public class indextPageActivity extends AppCompatActivity {
 
         //用id判斷點了哪個選項
 
-        if (id == R.id.membersetting) {
+        if (id == R.id.indext) {
+            Intent intent = new Intent(indextPageActivity.this, indextPageActivity.class);
+            startActivity(intent);
+
+        }
+        else if (id == R.id.membersetting) {
 
             Intent intent = new Intent(indextPageActivity.this, memberdataaPageActivity.class);
             startActivity(intent);
@@ -91,11 +95,7 @@ public class indextPageActivity extends AppCompatActivity {
             startActivity(intent);
 
         }
-        else if (id == R.id.myfavorite) {
-            Intent intent = new Intent(indextPageActivity.this, MyFavoriteActivity.class);
-            startActivity(intent);
-
-        }else if (id == R.id.storelists) {
+        else if (id == R.id.storelists) {
             Intent intent = new Intent(indextPageActivity.this, storelistActivity.class);
             startActivity(intent);
 

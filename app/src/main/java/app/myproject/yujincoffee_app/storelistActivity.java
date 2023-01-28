@@ -8,14 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
 import app.myproject.yujincoffee_app.databinding.ActivityStorelistBinding;
@@ -42,7 +37,11 @@ public class storelistActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
-        if(id == R.id.membersetting){
+        if(id == R.id.indext){
+            Intent intent=new Intent(storelistActivity.this,indextPageActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.membersetting){
             Intent intent=new Intent(storelistActivity.this,memberdataaPageActivity.class);
             startActivity(intent);
         }
@@ -57,10 +56,6 @@ public class storelistActivity extends AppCompatActivity {
         }
         else if(id == R.id.historyorder){
             Intent intent=new Intent(storelistActivity.this,HistoryOrderActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.myfavorite){
-            Intent intent=new Intent(storelistActivity.this,MyFavoriteActivity.class);
             startActivity(intent);
         }
         else if(id == R.id.storelists){

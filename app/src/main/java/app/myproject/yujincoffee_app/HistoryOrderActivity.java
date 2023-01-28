@@ -25,14 +25,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import app.myproject.yujincoffee_app.Adapter.HistoryOrderAdapter;
-import app.myproject.yujincoffee_app.Adapter.MyOrderAdapter;
-import app.myproject.yujincoffee_app.Model.Product.DrinkModel;
 import app.myproject.yujincoffee_app.Model.Product.ProductModel;
 import app.myproject.yujincoffee_app.Modle.Util.SimpleeAPIWorker;
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
@@ -140,7 +137,11 @@ public class HistoryOrderActivity extends AppCompatActivity {
         int id=item.getItemId();
 
         //用id判斷點了哪個選項
-        if(id == R.id.membersetting){
+        if(id == R.id.indext){
+            Intent intent=new Intent(HistoryOrderActivity.this,indextPageActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.membersetting){
             Intent intent=new Intent(HistoryOrderActivity.this,memberdataaPageActivity.class);
             startActivity(intent);
         }
@@ -158,7 +159,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
             Intent intent=new Intent(HistoryOrderActivity.this,HistoryOrderActivity.class);
             startActivity(intent);
         }
-        else if(id == R.id.myfavorite){
+        else if(id == R.id.historyorder){
             Intent intent=new Intent(HistoryOrderActivity.this,MyFavoriteActivity.class);
             startActivity(intent);
         }

@@ -14,7 +14,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,12 +27,12 @@ import java.util.Calendar;
 import app.myproject.yujincoffee_app.Adapter.OrderListAdapter;
 import app.myproject.yujincoffee_app.HistoryOrderActivity;
 import app.myproject.yujincoffee_app.Model.Product.DrinkModel;
-import app.myproject.yujincoffee_app.Model.Product.ProductModel;
 import app.myproject.yujincoffee_app.MyFavoriteActivity;
 import app.myproject.yujincoffee_app.MyOrderActivity;
 import app.myproject.yujincoffee_app.PointChangeActivity;
 import app.myproject.yujincoffee_app.R;
 import app.myproject.yujincoffee_app.databinding.ActivityProductOrderBinding;
+import app.myproject.yujincoffee_app.indextPageActivity;
 import app.myproject.yujincoffee_app.logPageActivity;
 import app.myproject.yujincoffee_app.memberdataaPageActivity;
 import app.myproject.yujincoffee_app.storelistActivity;
@@ -379,7 +378,12 @@ public class ProductOrderActivity extends AppCompatActivity {
         int id=item.getItemId();
 
         //用id判斷點了哪個選項
-        if(id == R.id.membersetting){
+        if(id == R.id.indext){
+            Intent intent=new Intent(ProductOrderActivity.this, indextPageActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if(id == R.id.membersetting){
             Intent intent=new Intent(ProductOrderActivity.this,memberdataaPageActivity.class);
             startActivity(intent);
             return true;
@@ -398,11 +402,6 @@ public class ProductOrderActivity extends AppCompatActivity {
 
         else if(id == R.id.historyorder){
             Intent intent=new Intent(ProductOrderActivity.this, HistoryOrderActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        else if(id == R.id.myfavorite){
-            Intent intent=new Intent(ProductOrderActivity.this, MyFavoriteActivity.class);
             startActivity(intent);
             return true;
         }

@@ -2,31 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/indext"
+        android:title="首頁"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/membersetting"
+        android:gravity="center"
         android:title="會員設定"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/myorder"
         android:title="我的訂單"
-        android:gravity="center"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
     <item
         android:id="@+id/itemmenu"
         android:title="商品菜單"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
     <item
         android:id="@+id/historyorder"
         android:title="歷史訂單"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/myfavorite"
-        android:title="我的最愛"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
     <item
         android:id="@+id/storelists"
         android:title="店鋪列表"

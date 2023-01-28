@@ -16,8 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -146,7 +144,11 @@ public class MemberDataChangeActivity extends AppCompatActivity {
         int id=item.getItemId();
 
         //用id判斷點了哪個選項
-        if(id == R.id.membersetting){
+        if(id == R.id.indext){
+            Intent intent=new Intent(MemberDataChangeActivity.this, indextPageActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.membersetting){
             Intent intent=new Intent(MemberDataChangeActivity.this,memberdataaPageActivity.class);
             startActivity(intent);
         }
@@ -162,10 +164,6 @@ public class MemberDataChangeActivity extends AppCompatActivity {
 
         else if(id == R.id.historyorder){
             Intent intent=new Intent(MemberDataChangeActivity.this, HistoryOrderActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.myfavorite){
-            Intent intent=new Intent(MemberDataChangeActivity.this, MyFavoriteActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.storelists) {

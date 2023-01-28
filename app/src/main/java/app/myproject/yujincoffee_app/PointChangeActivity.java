@@ -40,7 +40,12 @@ public class PointChangeActivity extends AppCompatActivity {
         int id=item.getItemId();
 
         //用id判斷點了哪個選項
-        if(id == R.id.membersetting){
+
+        if(id == R.id.indext){
+            Intent intent=new Intent(PointChangeActivity.this,indextPageActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.membersetting){
             Intent intent=new Intent(PointChangeActivity.this,memberdataaPageActivity.class);
             startActivity(intent);
         }
@@ -56,10 +61,6 @@ public class PointChangeActivity extends AppCompatActivity {
 
         else if(id == R.id.historyorder){
             Intent intent=new Intent(PointChangeActivity.this,HistoryOrderActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.myfavorite){
-            Intent intent=new Intent(PointChangeActivity.this,MyFavoriteActivity.class);
             startActivity(intent);
         }
         else if(id == R.id.storelists){

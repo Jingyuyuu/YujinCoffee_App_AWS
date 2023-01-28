@@ -39,7 +39,11 @@ public class MyFavoriteActivity extends AppCompatActivity {
         int id=item.getItemId();
 
         //用id判斷點了哪個選項
-        if(id == R.id.membersetting){
+        if(id == R.id.indext){
+            Intent intent=new Intent(MyFavoriteActivity.this,indextPageActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.membersetting){
             Intent intent=new Intent(MyFavoriteActivity.this,memberdataaPageActivity.class);
             startActivity(intent);
         }
@@ -55,10 +59,6 @@ public class MyFavoriteActivity extends AppCompatActivity {
 
         else if(id == R.id.historyorder){
             Intent intent=new Intent(MyFavoriteActivity.this,HistoryOrderActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.myfavorite){
-            Intent intent=new Intent(MyFavoriteActivity.this,MyFavoriteActivity.class);
             startActivity(intent);
         }
         else if(id == R.id.storelists){
