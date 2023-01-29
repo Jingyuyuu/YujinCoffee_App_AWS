@@ -106,8 +106,8 @@ public class MemberDataChangeActivity extends AppCompatActivity {
                             Toast.makeText(MemberDataChangeActivity.this, "請確認輸入相同密碼,且欄位不可空白", Toast.LENGTH_LONG).show();
                         }
 
-                        Intent intent = new Intent(MemberDataChangeActivity.this, memberdataaPageActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(MemberDataChangeActivity.this, memberdataaPageActivity.class);
+                        //startActivity(intent);
                     }
                 });
                 memberdataChangeBtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
