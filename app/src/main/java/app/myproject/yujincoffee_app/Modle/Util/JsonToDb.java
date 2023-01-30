@@ -1,5 +1,6 @@
 package app.myproject.yujincoffee_app.Modle.Util;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -18,22 +19,25 @@ public class JsonToDb {
     public void writeToDatabase(String jsonString) {
         this.jsonString = jsonString;
         try {
-            JSONArray rawData = new JSONArray(jsonString);
-            for (int i = 0; i < rawData.length(); i++) {
-                JSONObject jsonObject = rawData.getJSONObject(i);
-                db.execSQL("insert into product values(?,?,?,?,?,?,?);",
-                        new Object[]{
-                                jsonObject.getInt("p_id"),
-                                jsonObject.getInt("series"),
-                                jsonObject.getString("name"),
-                                jsonObject.getInt("tem"),
-                                jsonObject.getInt("calorie"),
-                                jsonObject.getInt("price"),
-                                jsonObject.getString("pic")
-                        });
-                //測試有沒有成功
-                Log.d("JSON", jsonObject.getString("name") + ":" + jsonObject.getInt("calorie"));
+            Cursor cursor2=db.rawQuery("select * from product;",null);
+            if(cursor2.getCount()==0) {
+                JSONArray rawData = new JSONArray(jsonString);
+                for (int i = 0; i < rawData.length(); i++) {
+                    JSONObject jsonObject = rawData.getJSONObject(i);
+                    db.execSQL("insert into product values(?,?,?,?,?,?,?);",
+                            new Object[]{
+                                    jsonObject.getInt("p_id"),
+                                    jsonObject.getInt("series"),
+                                    jsonObject.getString("name"),
+                                    jsonObject.getInt("tem"),
+                                    jsonObject.getInt("calorie"),
+                                    jsonObject.getInt("price"),
+                                    jsonObject.getString("pic")
+                            });
+                    //測試有沒有成功
+                    Log.d("JSON", jsonObject.getString("name") + ":" + jsonObject.getInt("calorie"));
 
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package app.myproject.yujincoffee_app.Adapter;
 
+import android.app.AlertDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import app.myproject.yujincoffee_app.Model.Product.ProductModel;
+import app.myproject.yujincoffee_app.MyOrderActivity;
 import app.myproject.yujincoffee_app.Part2.ItemTouchAdapter;
 import app.myproject.yujincoffee_app.R;
 
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> implements ItemTouchAdapter {
     ArrayList<ProductModel> item;
-
-    public MyOrderAdapter(ArrayList<ProductModel> item) {
+    SQLiteDatabase db;
+    public MyOrderAdapter(ArrayList<ProductModel> item,SQLiteDatabase db) {
+        this.db=db;
         this.item = item;
     }
 
@@ -51,11 +55,16 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
     @Override
     public int getItemCount() {
+        if(item==null){
+            return 0;
+        }
         return item.size();
     }
 
     @Override
     public void onItemDissmiss(int position) {
+
+        db.execSQL("delete from tempProductOrder where _id=?;",new Object[]{item.get(position).get_id()});
         item.remove(position);
         for(int i=0;i<item.size();i++){
             String name=item.get(i).getName();

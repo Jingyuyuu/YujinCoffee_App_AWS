@@ -91,6 +91,7 @@ public class MyOrderActivity extends AppCompatActivity {
                         cursor.getInt(5),
                         cursor.getInt(6));
                 item.add(a);
+                Log.d("Data",a.getName());
             }while(cursor.moveToNext());
         }
         //先抓出tem=0的資料
@@ -107,7 +108,7 @@ public class MyOrderActivity extends AppCompatActivity {
                 Log.e("myorder,item",item.toString());
             }while(cursor2.moveToNext());
         }
-        adapter=new MyOrderAdapter(item);
+        adapter=new MyOrderAdapter(item,db);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyOrderActivity.this);
         binding.shoppingCart.setLayoutManager(linearLayoutManager);
         //建立左滑能刪除的機制
@@ -228,7 +229,7 @@ public class MyOrderActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            adapter.onItemDissmiss(viewHolder.getAdapterPosition());
+            adapter.onItemDissmiss(viewHolder.getAbsoluteAdapterPosition());
             adapter.notifyDataSetChanged();
         }
 
@@ -298,7 +299,11 @@ public class MyOrderActivity extends AppCompatActivity {
                     editor.remove("phone");
                     editor.remove("email");
                     editor.apply();
+                    db.execSQL("delete from tempProductOrder;");
+                    Intent intent = new Intent(MyOrderActivity.this, logPageActivity.class);
+                    startActivity(intent);
                 }
+
             });
             logoutbtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
                 @Override

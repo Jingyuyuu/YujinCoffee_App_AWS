@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -46,6 +47,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
     ArrayList<ProductModel> item;
     HistoryOrderAdapter Hadapter;
     ExecutorService executorService;
+    SQLiteDatabase db;
 
 
 
@@ -58,6 +60,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
         //返回鍵
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
 
         executorService = Executors.newSingleThreadExecutor();
         //取得登入後儲存的會員EMAIL
@@ -184,6 +187,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
                     editor.remove("phone");
                     editor.remove("email");
                     editor.apply();
+                    db.execSQL("delete from tempProductOrder;");
                     Intent intent = new Intent(HistoryOrderActivity.this, logPageActivity.class);
                     startActivity(intent);
                 }

@@ -99,7 +99,7 @@
                 android:layout_height="300sp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                tools:srcCompat="@drawable/point3" />
+                tools:srcCompat="@drawable/point4" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -137,7 +137,7 @@
                 android:layout_height="300sp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                tools:srcCompat="@drawable/point2" />
+                tools:srcCompat="@drawable/points004" />
 
             <TextView
                 android:id="@+id/textView24"
