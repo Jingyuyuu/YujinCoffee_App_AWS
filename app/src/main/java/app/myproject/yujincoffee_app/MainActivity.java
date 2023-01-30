@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 jsonString=bundle.getString("data");
                 JsonToDb j2db = new JsonToDb(db);
                 j2db.writeToDatabase(jsonString);
+                Log.d("data",jsonString);
             }else{
                 Log.d("網路",bundle.getString("data"));
             }
@@ -93,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
         //創立資料表
         db.execSQL(createTable);
         db.execSQL(createTable2);
+        //http:/20.187.101.131
         //連線springBoot交給SimpleAPIWork做處理並取得產品資料的json格式檔案
-        request=new Request.Builder().url("http://192.168.255.104:8261/api/product/data").build();
+        request=new Request.Builder().url("http:/20.187.101.131:8216/api/product/data").build();
         //設定執行續
         executor= Executors.newSingleThreadExecutor();
+
         SimpleAPIWork downLoadData=new SimpleAPIWork(request,handler);
         executor.execute(downLoadData);
         //檢查product資料表裡面有沒有資料沒有回傳log.d(沒有資料)
