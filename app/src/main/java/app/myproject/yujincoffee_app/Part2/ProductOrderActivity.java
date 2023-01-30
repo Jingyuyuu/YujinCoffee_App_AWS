@@ -126,6 +126,7 @@ public class ProductOrderActivity extends AppCompatActivity {
                 shopCalorie=drinkCalorie;
                 binding.pPrice.setText(Integer.toString(drinkPrice));
                 binding.intentPic.setImageResource(resID);
+
                 binding.seriesDrinkMenuList.setAdapter(adapter);
                 binding.bigCalorie.setText(Integer.toString(drinkCalorie));
                 selectCheckBoxType(tem);
