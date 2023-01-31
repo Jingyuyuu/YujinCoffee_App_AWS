@@ -3,55 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/storepic"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/storepic" />
+    android:layout_height="150dp">
 
     <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="50dp"
-        android:layout_toEndOf="@+id/storepic"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="150dp"
         tools:text="店家地址:" />
 
     <TextView
         android:id="@+id/tel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/address"
-        android:layout_alignStart="@+id/address"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="218dp"
         tools:text="電話:" />
 
     <TextView
         android:id="@+id/businesshour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tel"
-        android:layout_alignStart="@+id/address"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="218dp"
         tools:text="營業時間:" />
 
     <TextView
         android:id="@+id/storename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/address"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="218dp"
         tools:text="店家名稱:" />
+
+    <TextView
+        android:id="@+id/storename1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/storename"
+        android:layout_marginStart="-210dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/storename" />
+
+    <TextView
+        android:id="@+id/businesshour1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/storename"
+        android:layout_marginStart="-210dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/businesshour" />
+
+    <TextView
+        android:id="@+id/tel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tel"
+        android:layout_marginStart="-210dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tel" />
+
+    <TextView
+        android:id="@+id/address1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/address"
+        android:layout_marginStart="-140dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/address" />
+
 </RelativeLayout>
