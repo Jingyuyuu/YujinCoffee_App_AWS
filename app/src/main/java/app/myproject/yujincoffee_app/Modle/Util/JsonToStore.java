@@ -27,10 +27,10 @@ public class JsonToStore {
                     JSONObject jsonObject = rawData.getJSONObject(i);
                     db.execSQL("insert into store values(?,?,?,?);",
                             new Object[]{
-                                    jsonObject.getString("store_name"),
-                                    jsonObject.getString("location"),
-                                    jsonObject.getString("telephone"),
-                                    jsonObject.getString("openinghour")
+                                    jsonObject.getString("storeName"),
+                                    jsonObject.getString("storeAddress"),
+                                    jsonObject.getString("storeTel"),
+                                    jsonObject.getString("storeHour")
                             });
                 }
             }

@@ -21,6 +21,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,9 +33,12 @@ import app.myproject.yujincoffee_app.Model.Product.StoreListModel;
 import app.myproject.yujincoffee_app.Modle.Util.JsonToDb;
 import app.myproject.yujincoffee_app.Modle.Util.JsonToStore;
 import app.myproject.yujincoffee_app.Modle.Util.SimpleAPIWork;
+import app.myproject.yujincoffee_app.Modle.Util.SimpleAPIWork2;
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
 import app.myproject.yujincoffee_app.databinding.ActivityStorelistBinding;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class storelistActivity extends AppCompatActivity {
 
@@ -53,26 +59,6 @@ public class storelistActivity extends AppCompatActivity {
             "storeHour text"+
             ");";
 
-    Handler handler = new Handler(Looper.getMainLooper()){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            String jsonString;
-            Bundle bundle = msg.getData();
-            int status = bundle.getInt("status");
-            if(status==200){
-                //再一次檢查有沒創建資料表可有可無
-                db.execSQL(createTable);
-                jsonString=bundle.getString("data");
-                JsonToStore j2db = new JsonToStore(db);
-                j2db.writeToDatabase(jsonString);
-                Log.d("data",jsonString);
-            }else{
-                Log.d("網路",bundle.getString("data"));
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +68,22 @@ public class storelistActivity extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
         db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
         db.execSQL(createTable);
         executor= Executors.newSingleThreadExecutor();
-        request = new Request.Builder().url("http://13.114.140.218:8216/api/store/allStore").build();
+
+        JSONObject packet = new JSONObject();
+        try {
+            packet.put("JSOM","APP送出存取店鋪資料要求");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        MediaType mType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(packet.toString(), mType);
+        Request request = new Request.Builder()
+                .url("http://13.114.140.218:8216/api/store/allStore")
+                .get()
+                .build();
         SimpleAPIWork simpleAPIWork = new SimpleAPIWork(request,handler);
         executor.execute(simpleAPIWork);
 
@@ -114,6 +110,28 @@ public class storelistActivity extends AppCompatActivity {
         binding.storeListMenu.setAdapter(adapter);
 
     }
+
+    Handler handler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            String jsonString;
+            Bundle bundle = msg.getData();
+            int status = bundle.getInt("status");
+            if(status==200){
+                //再一次檢查有沒創建資料表可有可無
+                db.execSQL(createTable);
+                jsonString=bundle.getString("data");
+                JsonToStore j2db = new JsonToStore(db);
+                j2db.writeToDatabase(jsonString);
+                Log.d("data",jsonString);
+            }else{
+                Log.d("網路",bundle.getString("data"));
+            }
+        }
+    };
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);

@@ -96,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL(createTable2);
         //http:/20.187.101.131
         //連線springBoot交給SimpleAPIWork做處理並取得產品資料的json格式檔案
-        request=new Request.Builder().url("http:/20.187.101.131:8216/api/product/data").build();
+        //用Get API
+        request=new Request.Builder().url("http://13.114.140.218:8216/api/product/data").build();
         //設定執行續
         executor= Executors.newSingleThreadExecutor();
 

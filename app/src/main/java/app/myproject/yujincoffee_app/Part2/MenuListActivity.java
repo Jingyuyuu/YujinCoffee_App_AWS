@@ -21,12 +21,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 
 import app.myproject.yujincoffee_app.Adapter.DrinkMenuAdapter;
 import app.myproject.yujincoffee_app.HistoryOrderActivity;
 import app.myproject.yujincoffee_app.Model.Product.DrinkModel;
 
 
+import app.myproject.yujincoffee_app.Model.Product.ProductModel;
 import app.myproject.yujincoffee_app.MyFavoriteActivity;
 import app.myproject.yujincoffee_app.MyOrderActivity;
 import app.myproject.yujincoffee_app.PointChangeActivity;
@@ -49,6 +51,7 @@ public class MenuListActivity extends AppCompatActivity {
     DrinkMenuAdapter adapter2;
     SharedPreferences sharedPreferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,9 @@ public class MenuListActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(spnOnItemSelected);
         //開啟資料庫
         db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
+
+
+
         //清單被點選後的機制傳回來第幾個被點到
         drinkMenuClickListener= new DrinkMenuClickListener() {
             @Override
