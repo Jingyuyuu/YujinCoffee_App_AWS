@@ -87,7 +87,7 @@ public class storelistActivity extends AppCompatActivity {
         db=openOrCreateDatabase("yujin",MODE_PRIVATE,null);
         db.execSQL(createTable);
         executor= Executors.newSingleThreadExecutor();
-        request = new Request.Builder().url("http:/20.187.101.131:8216/api/store/allStore").build();
+        request = new Request.Builder().url("http://13.114.140.218:8216/api/store/allStore").build();
         SimpleAPIWork simpleAPIWork = new SimpleAPIWork(request,handler);
         executor.execute(simpleAPIWork);
 

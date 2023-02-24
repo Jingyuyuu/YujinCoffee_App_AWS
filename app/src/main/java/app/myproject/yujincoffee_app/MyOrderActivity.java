@@ -190,8 +190,9 @@ public class MyOrderActivity extends AppCompatActivity {
                         MediaType mType=MediaType.parse("application/json");
                         RequestBody body=RequestBody.create(packet.toString(),mType);
                         //VM IP=20.187.101.131
+                        //EC2 VM IP=13.114.140.218
                         Request request=new Request.Builder()
-                                .url("http:/20.187.101.131:8216/api/product/orderSubmit")
+                                .url("http://13.114.140.218:8216/api/product/orderSubmit")
                                 .post(body)
                                 .build();
                         SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,orderSubmitHandler);

@@ -73,8 +73,10 @@ public class logPageActivity extends AppCompatActivity {
                     MediaType mType=MediaType.parse("application/json");
                     RequestBody body=RequestBody.create(packet.toString(),mType);
                     //VM IP=20.187.101.131
+                    //13.114.140.218
+                    //172.31.38.109
                     Request request=new Request.Builder()
-                            .url("http:/20.187.101.131:8216/api/member/login")
+                            .url("http://13.114.140.218:8216/api/member/login")
                             .post(body)
                             .build();
                     SimpleeAPIWorker apiCaller=new SimpleeAPIWorker(request,loginResultHandler);

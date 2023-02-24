@@ -93,8 +93,9 @@ public class MemberDataChangeActivity extends AppCompatActivity {
                             MediaType mType=MediaType.parse("application/json");
                             RequestBody body=RequestBody.create(packet.toString(),mType);
                             //VM IP=20.187.101.131
+                            //EC2 VM IP=13.114.140.218
                             Request request=new Request.Builder()
-                                    .url("http://20.187.101.131:8216/api/member/reNewMemberData")
+                                    .url("http://13.114.140.218:8216/api/member/reNewMemberData")
                                     .post(body)
                                     .build();
                             Toast.makeText(MemberDataChangeActivity.this, "已送出修改的會員資料", Toast.LENGTH_LONG).show();

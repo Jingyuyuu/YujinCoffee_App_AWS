@@ -54,8 +54,9 @@ public class PointChangeActivity extends AppCompatActivity {
         String email=memberDataPre.getString("email","查無資料");
         MediaType mType=MediaType.parse("application/json");
         //VM IP=20.187.101.131
+        //EC2 VM IP=13.114.140.218
         Request request=new Request.Builder()
-                .url("http:/192.168.255.123:8216/api/member/point/"+email)
+                .url("http://13.114.140.218:8216/api/member/point/"+email)
                 .build();
         SimpleAPIWork apiCaller=new SimpleAPIWork(request,getPointsHandler);
         //產生Task準備給executor執行
@@ -77,7 +78,7 @@ public class PointChangeActivity extends AppCompatActivity {
                             MediaType mType2=MediaType.parse("application/json");
                             //VM IP=20.187.101.131
                             Request request=new Request.Builder()
-                                    .url("http:/192.168.255.123:8216/api/member/minuspoint/"+point+"/"+email)
+                                    .url("http://13.114.140.218/api/member/minuspoint/"+point+"/"+email)
                                     .build();
                             SimpleAPIWork2 si= new SimpleAPIWork2(request);
                             executorService.execute(si);
@@ -113,7 +114,7 @@ public class PointChangeActivity extends AppCompatActivity {
                             MediaType mType2=MediaType.parse("application/json");
                             //VM IP=20.187.101.131
                             Request request=new Request.Builder()
-                                    .url("http:/192.168.255.123:8216/api/member/minuspoint/"+point+"/"+email)
+                                    .url("http://13.114.140.218:8216/api/member/minuspoint/"+point+"/"+email)
                                     .build();
                             SimpleAPIWork2 si= new SimpleAPIWork2(request);
                             executorService.execute(si);
