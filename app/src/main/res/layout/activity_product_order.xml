@@ -16,17 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="303dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:scaleType="centerInside"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="55dp">
 
             <TextView
                 android:id="@+id/pName"
@@ -37,10 +27,9 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.393"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.883"
                 tools:text="@string/hank_productName" />
 
             <TextView
@@ -50,10 +39,10 @@
                 android:textColor="@color/dark_yellow001"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.262"
+                app:layout_constraintHorizontal_bias="0.069"
                 app:layout_constraintStart_toEndOf="@+id/pName"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.915"
+                app:layout_constraintVertical_bias="0.735"
                 tools:text="@string/hank_price" />
 
             <TextView
@@ -68,23 +57,23 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/pPrice"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.915" />
+                app:layout_constraintVertical_bias="0.735" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="434dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp">
 
             <ImageView
                 android:id="@+id/intentPic"
-                android:layout_width="197dp"
+                android:layout_width="165dp"
                 android:layout_height="202dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ImageContrastCheck"
@@ -93,7 +82,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="173dp">
+            android:layout_height="125dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seriesDrinkMenuList"
@@ -117,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/my_item_background002"
-                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteX="-16dp"
                 tools:layout_editor_absoluteY="0dp" />
 
             <TextView
@@ -210,47 +199,49 @@
                 app:layout_constraintHorizontal_bias="0.136"
                 app:layout_constraintStart_toStartOf="@+id/textView10"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.179" />
+                app:layout_constraintVertical_bias="0.183" />
 
             <CheckBox
                 android:id="@+id/microSugar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="67dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="2dp"
                 android:text="@string/hank_microSugar"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.268"
+                app:layout_constraintHorizontal_bias="0.279"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.183" />
+                app:layout_constraintTop_toTopOf="@+id/noSugar"
+                app:layout_constraintVertical_bias="0.0" />
 
             <CheckBox
                 android:id="@+id/halfSugar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="67dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="2dp"
                 android:text="@string/hank_halfSugar"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.475"
+                app:layout_constraintHorizontal_bias="0.515"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.183" />
+                app:layout_constraintTop_toTopOf="@+id/noSugar"
+                app:layout_constraintVertical_bias="0.0" />
 
             <CheckBox
                 android:id="@+id/sugar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="67dp"
+                android:layout_height="46dp"
                 android:text="@string/hank_sugar"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.682"
+                app:layout_constraintHorizontal_bias="0.752"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.183" />
+                app:layout_constraintTop_toTopOf="@+id/noSugar"
+                app:layout_constraintVertical_bias="0.0" />
 
             <CheckBox
                 android:id="@+id/hot"
@@ -263,72 +254,75 @@
                 app:layout_constraintHorizontal_bias="0.209"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/noIce"
-                app:layout_constraintVertical_bias="0.479" />
+                app:layout_constraintVertical_bias="0.426" />
 
             <CheckBox
                 android:id="@+id/noIce"
-                android:layout_width="65dp"
+                android:layout_width="67dp"
                 android:layout_height="46dp"
                 android:text="@string/hank_noIce"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.135"
+                app:layout_constraintHorizontal_bias="0.136"
                 app:layout_constraintStart_toStartOf="@+id/textView11"
                 app:layout_constraintTop_toTopOf="@+id/noSugar"
-                app:layout_constraintVertical_bias="0.355" />
+                app:layout_constraintVertical_bias="0.351" />
 
             <CheckBox
                 android:id="@+id/microIce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="67dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="2dp"
                 android:text="@string/hank_microIce"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.335"
+                app:layout_constraintHorizontal_bias="0.352"
                 app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toTopOf="@+id/microSugar"
-                app:layout_constraintVertical_bias="0.356" />
+                app:layout_constraintTop_toTopOf="@+id/noIce"
+                app:layout_constraintVertical_bias="0.0" />
 
             <CheckBox
                 android:id="@+id/lessIce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="67dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="2dp"
                 android:text="@string/hank_lessIce"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.527"
+                app:layout_constraintHorizontal_bias="0.565"
                 app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toTopOf="@+id/halfSugar"
-                app:layout_constraintVertical_bias="0.356" />
+                app:layout_constraintTop_toTopOf="@+id/noIce"
+                app:layout_constraintVertical_bias="0.0" />
 
             <CheckBox
                 android:id="@+id/ice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginStart="4dp"
                 android:text="@string/hank_ice"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.746"
+                app:layout_constraintHorizontal_bias="0.794"
                 app:layout_constraintStart_toStartOf="@+id/textView11"
-                app:layout_constraintTop_toTopOf="@+id/sugar"
-                app:layout_constraintVertical_bias="0.356" />
+                app:layout_constraintTop_toTopOf="@+id/noIce"
+                app:layout_constraintVertical_bias="0.0" />
 
             <EditText
                 android:id="@+id/productQuantity"
-                android:layout_width="56dp"
-                android:layout_height="55dp"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.037"
                 app:layout_constraintStart_toEndOf="@+id/textView12"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.93" />
+                app:layout_constraintTop_toBottomOf="@+id/hot"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/btnOrder"
@@ -339,8 +333,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.935"
                 app:layout_constraintStart_toEndOf="@+id/textView12"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/hot"
+                app:layout_constraintVertical_bias="0.437" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

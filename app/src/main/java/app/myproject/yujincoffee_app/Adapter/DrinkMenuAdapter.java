@@ -68,34 +68,34 @@ public class DrinkMenuAdapter extends RecyclerView.Adapter <DrinkMenuAdapter.Vie
         item.clear();
         Cursor cursor=null;
         switch (series){
-            case "All":
+            case "【全系列商品】":
                 cursor = db.rawQuery("select * from product;" , null );
                 break;
-            case "芝芝茗茶":
+            case "【芝芝茗茶】系列":
                 cursor = db.rawQuery("select * from product where series=1;" , null );
                 break;
-            case "奶茶":
+            case "【奶茶】系列":
                 cursor = db.rawQuery("select * from product where series=2;" , null );
                 break;
-            case "芝芝水果茶":
+            case "【芝芝水果茶】系列":
                 cursor = db.rawQuery("select * from product where series=3;" , null );
                 break;
-            case "滿杯水果家族":
+            case "【滿杯水果家族】系列":
                 cursor = db.rawQuery("select * from product where series=4;" , null );
                 break;
-            case "新式茶飲":
+            case "【新式茶飲】系列":
                 cursor = db.rawQuery("select * from product where series=5;" , null );
                 break;
-            case "啵啵家族":
+            case "【啵啵家族】系列":
                 cursor = db.rawQuery("select * from product where series=6;" , null );
                 break;
-            case "咖啡家族":
+            case "【咖啡家族】系列":
                 cursor = db.rawQuery("select * from product where series=8;" , null );
                 break;
-            case "麵包":
+            case "【麵包】系列":
                 cursor = db.rawQuery("select * from product where series=9;" , null );
                 break;
-            case "蛋糕":
+            case "【蛋糕】系列":
                 cursor = db.rawQuery("select * from product where series=10;" , null );
                 break;
         }

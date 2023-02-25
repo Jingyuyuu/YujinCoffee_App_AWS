@@ -9,17 +9,26 @@
     <Spinner
         android:id="@+id/series_spinner"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/spinner_back_1"
+        android:dropDownSelector="@drawable/my_item_background002"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/light_orange002"
         app:layout_constraintBottom_toTopOf="@+id/drinkmenulist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="0000000000000000000000000000000" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/drinkmenulist"
-        android:layout_width="match_parent"
+        android:layout_width="382dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,15 +36,15 @@
     <string name="hank_productName">產品名稱</string>
     <string name="hank_ca">卡</string>
     <string-array name="series_array">
-        <item>All</item>
-        <item>芝芝茗茶</item>
-        <item>奶茶</item>
-        <item>芝芝水果茶</item>
-        <item>滿杯水果家族</item>
-        <item>新式茶飲</item>
-        <item>啵啵家族</item>
-        <item>咖啡家族</item>
-        <item>麵包</item>
-        <item>蛋糕</item>
+        <item>【全系列商品】</item>
+        <item>【芝芝茗茶】系列</item>
+        <item>【奶茶】系列</item>
+        <item>【芝芝水果茶】系列</item>
+        <item>【滿杯水果家族】系列</item>
+        <item>【新式茶飲】系列</item>
+        <item>【啵啵家族】系列</item>
+        <item>【咖啡家族】系列</item>
+        <item>【麵包】系列</item>
+        <item>【蛋糕】系列</item>
     </string-array>
 </resources>

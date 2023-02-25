@@ -11,19 +11,32 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import app.myproject.yujincoffee_app.Part2.MenuListActivity;
+import app.myproject.yujincoffee_app.databinding.ActivityLogPageBinding;
+import app.myproject.yujincoffee_app.databinding.ActivitySeasonnewBinding;
 
 public class seasonnew extends AppCompatActivity {
 
+    ActivitySeasonnewBinding binding;
     SharedPreferences memberDataPre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seasonnew);
+        binding=ActivitySeasonnewBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         //返回鍵
         ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(seasonnew.this,indextPageActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     @Override
@@ -83,6 +96,8 @@ public class seasonnew extends AppCompatActivity {
                     editor.remove("phone");
                     editor.remove("email");
                     editor.apply();
+                    Intent intent = new Intent(seasonnew.this, logPageActivity.class);
+                    startActivity(intent);
                 }
             });
             logoutbtn.setNegativeButton("否", new DialogInterface.OnClickListener() {
